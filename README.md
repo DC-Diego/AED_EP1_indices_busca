@@ -1,5 +1,6 @@
 # AED_EP1_indices_busca
 EP1 de AED, indices busca de palavras por indices do tipo arvore binária de busca (bst) ou listas (lista ligada ou lista sequencial)
+<<<<<<< HEAD
 
 arquivo funcs.h:
   possui funções de strings que serão uteis para comparações de strings e transformações de strings:
@@ -39,6 +40,5 @@ arquivo indiceLista.h:
 
   NoLinha * buscaLista(NoPalavra **tabela, char * palavra, int * qtdComp):
     Utiliza a função de hashing para aumentar a eficiência da busca e retorna a lista ligada das linhas da palavra encontrada (retorna a cabeça também pois possui o número de ocorrencias da palavra)
-
 
 
