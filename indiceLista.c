@@ -9,15 +9,6 @@ int tamanhoTabela = 26*4*4;
 
 
 
-NoLinha * criaLinhas(){
-  NoLinha * new = (NoLinha*) malloc(sizeof(NoLinha));
-  new->linha = 0;
-  new->next = NULL;
-  
-  return new;
-
-} 
-
 
 NoPalavra * criaNo(){
   NoPalavra * new = (NoPalavra*) malloc(sizeof(NoPalavra));
@@ -48,26 +39,6 @@ int posicaoPalavraLista(char *p){
   return id;
 }
 
-
-int inserirLinhaLista(NoLinha * linhas, int linha){
-  linhas->linha++;
-  NoLinha *anterior = linhas;     
-  NoLinha *p = linhas->next;
-  while (p && p->linha < linha) {
-    anterior = p;
-    p = p->next;
-  }
-  if (p && p->linha == linha) {
-    return 0;  
-  }
-
-  NoLinha *novo = criaLinhas();
-  novo->linha = linha;
-
-  novo->next = p;
-  anterior->next = novo;
-  return 1;
-}
 
 
 

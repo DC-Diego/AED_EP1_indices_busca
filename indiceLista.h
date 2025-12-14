@@ -3,12 +3,6 @@
 
 #include "funcs.h"
 
-typedef struct linhaNo{
-  int linha;
-  
-  struct linhaNo * next;
-
-} NoLinha;
 
 typedef struct palavraNo{
   char * palavra;
@@ -17,7 +11,7 @@ typedef struct palavraNo{
 } NoPalavra;
 
 
-NoLinha * criaLinhas();
+
 
 NoPalavra * criaNo();
 
@@ -25,7 +19,7 @@ NoPalavra ** criaTabela();
 
 int posicaoPalavraLista(char * palavra);
 
-int inserirLinhaLista(NoLinha * linhas, int linha);
+
 
 int inserirPalavraLista(NoPalavra**tabela, char*palavra, int linha, int * comp);
 
