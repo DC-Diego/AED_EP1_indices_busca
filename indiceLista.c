@@ -4,11 +4,7 @@
 
 #include "indiceLista.h"
 
-
-int tamanhoTabela = 26*4*4;
-
-
-
+int tamanhoTabela = 2500;
 
 NoPalavra * criaNo(){
   NoPalavra * new = (NoPalavra*) malloc(sizeof(NoPalavra));
@@ -17,8 +13,6 @@ NoPalavra * criaNo(){
   new->palavra = NULL;
   return new;
 } 
-
-
 
 NoPalavra ** criaTabela(){
  
@@ -30,18 +24,13 @@ NoPalavra ** criaTabela(){
   return tabela;
 }
 
-
 int posicaoPalavraLista(char *p){
   int id = 0;
   for (int i = 0; p[i] && i < 6; i++) {
-    id = (id * 31 + (p[i] - 'a' + 1)) % tamanhoTabela;
+    id = (id * 31 + (p[i] - 'a')) % tamanhoTabela;
   }
   return id;
 }
-
-
-
-
 
 int inserirPalavraLista(NoPalavra**tabela, char*palavra, int linha, int * comp){
   int qtd = 0;
@@ -54,7 +43,8 @@ int inserirPalavraLista(NoPalavra**tabela, char*palavra, int linha, int * comp){
     qtd++;
     if(c == 0){
       *comp += qtd; 
-      return inserirLinhaLista(p->linhas, linha);
+      inserirLinhaLista(p->linhas, linha);
+      return 0;
     }else{
       anterior = p;
       p = p->next;
@@ -68,9 +58,6 @@ int inserirPalavraLista(NoPalavra**tabela, char*palavra, int linha, int * comp){
   *comp += qtd;
   return inserirLinhaLista(new->linhas, linha);
 }
-
-
-
 
 
 NoLinha * buscaLista(NoPalavra **tabela, char * palavra, int * qtdComp){
