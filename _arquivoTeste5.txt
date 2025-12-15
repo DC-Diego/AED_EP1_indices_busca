@@ -1,109 +1,676 @@
-ACH2023 - Algoritmos e Estruturas de Dados I
-Exercício Programa - 2.o semestre de 2025
-Indexador e Buscador de Palavras
-Objetivos
-Neste EP vocês deverão implementar um indexador e buscador de palavras para arquivos de
-texto. Ao executar, o programa deve carregar o conteúdo de um arquivo texto, armazená-lo em
-memória (de forma que se possa ter acesso eficiente a uma linha qualquer do texto em um
-momento posterior 一 sugere-se, para essa finalidade, o uso de uma lista sequencial onde cada
-elemento corresponde a uma linha do texto) e também indexar suas palavras (isto é, criar uma
-outra estrutura que permita verificar a existência ou não de uma palavra sem verificar o texto
-linha por linha a cada busca). Na sequência, o programa fica à disposição do(a) usuário(a) para
-que ele(a) possa realizar uma ou mais buscas. Em cada busca, caso a palavra procurada exista
-no texto, o programa deve exibir as linhas do texto nas quais a palavra ocorre.
-O propósito de se criar um índice, antes da realização das buscas em si, é acelerar o processo de
-busca. Para isso vocês deverão empregar as estruturas de dados estudadas ao longo do
-semestre (listas sequenciais, listas ligadas, árvores, etc). Vocês deverão implementar dois tipos
-diferentes de índice (o tipo a ser usado será definido no ato da execução do programa através de
-um parâmetro de linha de comando):
-- baseado em lista
-- baseado em árvore
-Ambos os índices deverão manter uma coleção de entradas, onde cada entrada contém uma
-string (ou seja, representa uma palavra do texto) e outras informações eventualmente relevantes
-para gerar a saída esperada (total de ocorrências da palavra, linhas em que a palavra aparece).
-Para desenvolver este EP de modo que o programa cumpra seu objetivo, vocês podem usar as
-implementações de estruturas de dados estudadas e disponibilizadas como base, fazendo as
-alterações necessárias.
-O EP desenvolvido também deve indicar quantas comparações entre palavras são feitas para
-realizar cada operação: carga inicial do arquivo/construção do índice, e busca de palavras.
-Funcionamento detalhado do EP
-O programa, ao ser executado na linha de comando, deve receber dois parâmetros. O primeiro
-define o nome do arquivo texto a ser indexado, e sobre o qual as buscas serão feitas. O segundo
-parâmetro define o tipo de estrutura a ser empregada para representar o índice na execução
-atual. As únicas opções válidas para este segundo parâmetro são: lista ou arvore. Se a primeira
-opção for escolhida, a estrutura na qual as entradas do índice serão inseridas deve ser uma lista
-(o tipo exato a ser usado fica a critério de vocês). Já se a segunda opção for escolhida, as
-entradas do índice deverão ser organizadas em uma árvore binária de busca.
-Para entender melhor o funcionamento do programa, considere o seguinte trecho de texto,
-extraído do capítulo 1 do livro Introduction to Algorithms (Cormen et al, 2009):
-Informally, an algorithm is any well-defined computational procedure that takes
-some value, or set of values, as input and produces some value, or set of values,
-as output. An algorithm is thus a sequence of computational steps that transform
-the input into the output.
-We can also view an algorithm as a tool for solving a well-specified computational
-problem. The statement of the problem specifies in general terms the desired
-input/output relationship. The algorithm describes a specific computational
-procedure for achieving that input/output relationship.
-For example, we might need to sort a sequence of numbers into nondecreasing order.
-This problem arises frequently in practice and provides fertile ground for introducing
-many standard design techniques and analysis tools.
-Suponha que este trecho esteja salvo em um arquivo chamado texto.txt, e que desejamos
-realizar buscas sobre o conteúdo deste texto. O trecho abaixo ilustra como o programa deve ser
-executado, assim como a saída gerada pelo mesmo. Vocês devem seguir à risca a formatação
-de saída do programa conforme ilustrada no exemplo abaixo:
-$./ep texto.txt arvore
-Arquivo: 'texto.txt'
-Tipo de indice: 'arvore'
-Numero de linhas no arquivo: 13
-Total de palavras unicas indexadas: XXXXX
-Altura da arvore: XXXXX
-Numero de comparacoes realizadas para a construcao do indice: XXXXX
-> busca algorithm
-Existem 4 ocorrências da palavra 'algorithm' na(s) seguinte(s) linha(s):
-00001: Informally, an algorithm is any well-defined computational procedure that takes
-00003: as output. An algorithm is thus a sequence of computational steps that transform
-00006: We can also view an algorithm as a tool for solving a well-specified computational
-00008: input/output relationship. The algorithm describes a specific computational
-Numero de comparacoes: XXXXX
-> busca set
-Existem 2 ocorrências da palavra 'set' na(s) seguinte(s) linha(s):
-00002: some value, or set of values, as input and produces some value, or set of values,
-Numero de comparacoes: XXXXX
-> busca quicksort
-Palavra 'quicksort' nao encontrada.
-Numero de comparacoes: XXXXX
-> buska quicksort
-Opcao invalida!
-> fim
-$
-Observem que, nas linhas em que são impressos o total de palavras únicas indexadas, a altura da
-árvore e o número de comparações realizadas, as strings ‘XXXXX’ devem ser substituídas pelas
-respectivas quantidades. Notem ainda que a impressão da altura da árvore só faz sentido quando
-o índice tipo arvore for empregado, logo tal linha deve ser suprimida da saída quando o índice
-usado for do tipo lista.
-Observem também que após a carga do arquivo de texto e construção do índice, o programa deve
-imprimir a sequência de caracteres '> ', indicando que está esperando por algum tipo de
-entrada do(a) usuário(a). O(a) usuário(a) pode então executar dois “comandos” possíveis: o
-comando “busca” (que deve ser seguido da palavra a ser buscada) ou o comando “fim” (que
-causa a finalização do programa). Enquanto a opção “fim” não for digitada, o programa continua
-esperando comandos do(a) usuário(a).
-Observações
-Seu programa deve ignorar por completo qualquer sinal de pontuação. Palavras compostas com o
-uso do hífen, devem ser tratadas como duas palavras separadas. Assuma também que a busca é
-sempre feita considerando palavras inteiras (por exemplo, se no arquivo texto existem as palavras
-“algorithm” e “algorithms”, e uma busca é feita pela palavra “algorithm”, as ocorrências da palavra
-no plural não devem ser consideradas). Por fim, a busca deve ser realizada de tal modo que
-versões maiúsculas e minúsculas de um caracteres sejam consideradas iguais.
-Entrega
-Além do(s) código(s) fonte(s), entregue também um arquivo README.TXT com as instruções de
-como seu EP deve ser compilado. Também deve ser entregue um relatório no qual devem ser
-relatados o resultado de alguns experimentos em que sejam variados o tamanho dos arquivos de
-texto, assim como o tipo do índice empregado. Apresente os resultados em relação à quantidade
-de comparações realizadas nas operações (carga do arquivo/construção do índice e realização
-das buscas) e discuta os resultados obtidos.
-Este EP pode ser feito em grupos de 2 ou 3 pessoas (não serão aceitos grupos com mais de 3
-componentes). Para realizar a entrega, crie um arquivo no formato ZIP contendo os arquivos fonte
-do EP, o README.TXT e o relatório em formato PDF. Entregue esse arquivo ZIP na atividade
-aberta no eDisciplinas referente a este EP até o final do dia 16 de dezembro (apenas um membro
-do grupo deve fazer o envio).
-Boa diversão! :)
+xhu dyj rdj fwu xwn btn dyh nsk luf vjm ozz mua kff wdt rjf ljq jzp usu ldu ffp ljk lfm hpw zhx frz dcj 
+fpg cbs mjf udx fuc hkj arv bic cow rrd aqo eef akw mmx wnq trv pbx akh spa jpi fzk zdl xih gxr blb hvn 
+sgx llu pzh msd rgt gys otn khc wgj too lar gts koj vbx vdp lrh pda lph khp jce tul bfm yvv amt hxb tkf 
+atb htl igc det ndf ioq hbh tck lgr gir sdb pye ktu zpw jnt obt fqk drn nso kys mie vsd zhr jle rfn vbq 
+dhb szg kvt tiz fdf bvn qch tqz oyy nav ngb uof dcp vol fge myo xuz ljr rev ieh edq txk vkx uby mau vda 
+jcq iak ydt lyr qnk hde faz qfs jzz gtm uov nyr ixg ukr xdq hwd nig cgx lty eis qzm qzk xma bks jwi erd 
+pch dfm sgw uoz avl icd bqd kek klo pzi ryn knt ejc nza emo vhz nmo uxm jlz cef jku dtd pcr rmx cuo nms 
+jad eqf uwb qkl dgq vru ptz voq dmt cjs tpa cpd num tfn oul jgy hth utt gzx gyy dev vde jhq ihv ypr wru 
+nnq ubo cda syh wrj spk gsm kbv bhw lzi mpk dfy auz opy yvl fvj liw mqi eee iob cqi kqm moq lkm wvc mex 
+ydc ewv pgx uai axq iia faa szy arp att jrs tbk uue gfl vnk uuj jdx dsc uml yzk klj bfr baw gnh pky tsj 
+vlp ncl vro buj eze pcm lnj vwo elj tkx cyg wqz krc yfo ysl owz nwp ihu kbk kth lmo ofz pgw hwa ucy jjm 
+vwx xuo wic sbc uqh iai xjp alf uxf ivq ooq adf uhm rze flb xlf sog wcj qem gxn qol bgx jzh cul byq qbs 
+gzr fdc jrp oiu sio jkb qql uti fhs jzu vin atc lly rrs thg ypq gey snz kxy zbl lqb dhn vce eww qid pay 
+idr wma scx dbq qmg vra eiu nkf pjy lrk efx exx kvj jmt wij prk ror rla lvv epm opm ejo ake jte rkq swy 
+pax xnc dwm gng pbr tgc ldg hdt dbt cqs fxb znu nfq azc ctn sal cvd lbo hvz dwe kzo kzn hjp rba fzb glv 
+ndi dzk qsb kcq utc bfe rsh wse dpt gzf reh jbh qzi bkj lll azg oxd xdz lwc lra fap tzc wff uyf gov cqy 
+isc bmh tfq eek zfk eom ela tkn hsa nei noy irh mpi lzy klw pld eam oyc rwr grq oce jta vqo bsq yrk kgv 
+hvm dbk iny gqm mbt mur isy adm xzc vvb qtf jlt doe avh dyk hor lad zhq lsw epx qpg gso lyd dky vzo hhd 
+xta dva aqn psn daf och wpm ftk plp hch isx elw oot vmg kne wpu nfh cvh zgg kxs hxc jqo bxr heg ilq qbl 
+oic ibs erc yoq ihb vyg fkv xro jdg rsa smi fyq eed trn jfg qeo jkd eoe jpm tya udb fxj csi yci dlk kpm 
+iiy udr iau gmt vhm nle qew wdv hmv lby mfo iir ufq oda njf rax zod ibu dhe fed ipn ipe mfu wie mnz kmx 
+emm oes zwr exy les mtr wkg wkl mfb ebs uvm bml rwz elk kda xrh mtm mgx uxd bev gih qav gzg cty vfm dox 
+vbi ohe uzi snq ski crc vuh dcy elg nub cvt foy jbg ufi epb ikz vur yuz pve dvd xll bpx nuo wfe fre ksd 
+mpn zij gwe svn crw yzj jom dxw ysw ktl qco kxu jkl bfo liq mvo dff tmq wjx aiy fdu jyb ugh hdq god aho 
+fdk lew ksp jwe ttg qcl zzx aqd tdf dud pbn mct kmz sdn cld tij vty gcb xaq bot nor mlj cdl fke jtk nqk 
+anf ibc fxe upr rvn ssz gbk pev qat iyr mfk lai cou mzu pql ldv nxd otz drj pyg cpw ehg hrr fmd rgf enr 
+ogx kqc qqk cba kxd bpr wcg vux csx buk pqf tpn woq xxf qrx yds lfe wfx htt kua mfg tox tsc wkz laq uur 
+wlr dxk joj qyj pjb ssh skt uyp lma mbb yww cpe tak hyc qer ndn feq zpd rut pul qpe jxt uuh sci puq ttb 
+lwm wlo jbm iss owl pck dlc ars qmf geb eei dut btf byw cbx sdt idf ibo ros cxi ynj qza snk kva jxl fhx 
+vaz dvf elf ovq gas fyl nxc vxl bqf oml hae kso sjo bus lgh fsp giq sus goz ewo mun cmm afn mjw yiv mzr 
+vdu eac akk rdt rei qmk ntg jqt iox qiq nii gdl pjn pni xic mhs bjv tli fis jow rnm tht onl nbr mag ltv 
+giw awk kfl exh mqd bfc xyw img lks eag frm pcd phf vhx uex pdt dgt arh dwn cln ztt adr mjz csh yvx oqd 
+kvs vmv nuk vky iio qex lrp xxv qlf sum yti few dml ful ejd qba rth ghx aen rfu iyo uxe aal qdq pzl cbl 
+dcx hsg iah ndu mqw rhv kpv oqm jgu lce uyn nck aoe uwv qsv npb oma tvk net szo wvi fjf jkm qpv hit fba 
+lku nxe lxy akp rrn fpm rph dzj mqz vjk eio dhm qrj gpn vks ctd kdm xop mlm ktk kky edw tbu pim lem ezl 
+eso ddz yny thz pbe edz rjn axj qjl gar cia bud zef sxv mwv zrf oxa kwa vgy uem ueu ezs www dfj jrx vcl 
+qjc nev ico ava adx qvq fyv sas vww sjz peh khb ubt vkc vss iow jor fpr ohj rep jzw ggk afi rxj bvf egh 
+dgw oqj ifb nkm yqm bcj tyk nbk gde ums ags wpg boj whs jns tlr hkr nsv vpe kgw mus ick eit arq unq rwf 
+qvy afd wwq dvo lpw nfj khw jtv cig rtd vvt nuf lls plx cmj wdn jpj rlf qij sym aaz ifq rzy rbp nxk kdp 
+hlu jrh kxc kwz ady hwk kfy vfd nyx icr sse bat qff xzf oai qoi dlj gsh ssg phu wku rzp hvr qpa zud tja 
+neg shk agt ndh cmf qxh fky hum eqi mkh odq jhr xlu sts hcy glk ins prd lzn iig ojf uqi rlq ctt klm oix 
+pmm eyx tpv wpj weu hpv fvi fel asg lol soe kqr sjt sjd nud mze jdd lbh uqs tqk azm jvx xwj out khx tvj 
+ooh aln fgh web jio pts rfe erm mai rwx sib mzv mac gpk hkw ddw sfr ieb bvu vie vsf ebf eij qve brm rgb 
+pcy jgz vii mrh sdx gqe cyx gbp cha sxp ghu ipq jjk ese vim yre jeg hqf dba rue ekt vod kaq hkk asb ilm 
+mpp rdi btv dij rya gub rpm wsj aok toe tqw wcw cqt bmw svd hnz mqx vpq mgj xmg dma rju bup kmy kdv ehe 
+yoo ign sjs pdu jfa opv aph fzo ltn xct gkv jjg ftw tux sdj ogo qgh pot pao xer xbr kss jdm vjd xnm xry 
+usj gai eka mlp trj flt xlt bly ltc vdn dbe ooc css tmg dkb ace bre kja dav mnm cxw duu gll cpx fkm twe 
+qnd jww lgi yzv tcr bqa fjw nmw ske akv fpx wal bhu qop twr qeu ikk pyj rgc ccy edy vmh rkr pwc kiv djc 
+mts psg tcq bvv mue mtk xkj ksm qcy yfl rps kyo gkp smd lyt fil uck fua eii dpd hil lcf iay lvj yqz ril 
+lvh sih qjf iza rjm wcq iey vwm bym rzl scw now pbf mjq dwt obp pej anv tmk fkj igq uvd qan gnu dmo eno 
+spl sxe uft ggv bdm yhd dkg bam qhy ahf etw hkx yfn ldw tzp egr tel uum qux lsl mfd gny vmt tbr idj juc 
+oqx lwu hbx ujm yfw buz eln hec mfv aqt jaj xcu epa lfv pfm hou qqu adc xhn fty qsh jxx vkf hla ihx lub 
+qgn lml mes ghb xaz lwn tzf gzh air tod eaj iki ewu ijd sdm eaw omv msq fuu dgi qwd rnn rak lag ila oll 
+adn dqz bau yev jtm tua rqk lpc zng oeo hxq smm hkc jqz tny qhx zfr wcz kqz hed kol dnb wxl qfe cmr ttt 
+hdg pqs gfv iel gsk awv zic rha htv oht twz rgm drb iov zbt bha axo xgp nyq kmw mxr xfv vwh ouq uok mpb 
+mmu trl rrf iyi zeq pxn rpy hcv nhw lhj pkf vgi yzn lnb eje hjj ofd fwo tbc fcx xyk tmd eev dkl zsy yfc 
+pbu fhc khr dck btk jhk til cjn esz riz fhf huo tst dhh tna qxx fdr mcr muu rvv guf lhy ffe ngh hdz rey 
+ppd xle rvi vbl uzf ndo uff jdc lbs ubd zmb fqm ytd ysb dnu owj xvl esd ave jjd scv hdy rvh wen mkd ter 
+afr hpq mlq fou mhg inr nit uqq nel fve cvv mtu stj ntp sut kbr xvc poo bdw pyr cko pcs tuv ber zri zzq 
+nsn fvc muf kxr gfw xoe rsn exw sux tdi ikt nqy oho bje qwc tbh gyw jvy yme ufs vbd abr osz ohg fnz jox 
+yjf qqe vxx ybi zon can oei nfo aeo brp ckl prf fwg fpd qxg bad ifn aqy cdy fru qjh ffi ctk wvr fmy izn 
+cbt crs jck aww fos lea gsq jwg jdv rcf jpn czh cve vse kqf qta roa dpj hbs cyi yry hxz uog wdo bcp pmz 
+igp aej jiv dfb vrj pfj elu djz tyf lhz rwd lqc fhw vdt wqv pxv gcl ifx jvi zca fhq sjp vdm qcn wkk qyc 
+jdw vch qom bwl gur xqa ggq kos hym ggp qxe njb tbs coh wla erf kkp omx jnl qfc vcx drp ooa woj xlp otd 
+tru clx jfc nlq pdp shz vmp wdl flp aft ehv sma rzv nox vfs swf vzu rtb urv aey bur ang nec lws jha gpr 
+crb hzq hzo dxg jsg rrv dwg zes gbr jgf hwb yrf iyh jau dce uuw jes xim mcu gpa prq iib xde qii szc xjv 
+nxv por hnk yjc sur jpa tyv sll bto nnv dsr duv fyn hxa frr cce ape bbm pvq xku bif rva lkw cfe fmc hzi 
+kvn ppt tyc cjr emg yzo spg wje qso deq wrh bmf ero gbv vjq quh cpg kvk imc uxa qzo yom blj ruw rll toi 
+rvq bws qjs nsx nna cfo lrz glz fnq qte lfa xzn vzc cid pnm rlo mwf lua lmm gxu ebn nrx pmi cxj zza lxn 
+yxf bmr qlj ewr tzg kuv wdc auh wav fgq oat jwz kun mmg eyb des jht mys xie erx jjj gqk mrj bcc bci uld 
+xsv utj qih gql dtz bew nwe fyd aqa jwa oym qfz gmr tpw ion snx idw dtx tse vca myg ppp hgz cts dgp gza 
+qfh oel iyq eyg mlz kqn nhn hso caq uer fji ges vpg qui red tgf bnd nrr jbc tnb thp bvi txt rar uvl pgs 
+spt lyx kns nvi sof pef mnh lkn ugo kpu jos qgt alj aiw ugx hln qee ria hej pvj uiy fqx rvf bey znp wdh 
+xnn two icu ooj zwd rle jls emd igy izv keo ynh fgl bcz zbn dgm ocr teo lbz rnw tnl njl hxf jiw zkv mns 
+ryo zke hes qur add epy bxi oey inp vsq hlb jve lxd bkx txw ptr ith qou eqz oqb tmc gxo djm aeq tym dkv 
+pxx brd hpz apo cab rdm iha hro adh wkx kqo nus qqz daa wbn lox spi esh npd yaa jlj gkl vvi dao kei dqv 
+wsb sdl vxb aqx ryq cmk goq sgs chg mqe cpm wbh tgn eue dye uru fht dvu mev ezi hsk gsf ued vle zwb rdp 
+gya pyf pab ujn xfn pto fud zki eod nok jak kpi npc qmn ubl bbt xem isk cnz dmg rgh wio ffq uzs ggb aly 
+hbt lrw dok sxz wek nla sps jre djp mkk njo atz xdi fnm hot slu yae lxm uky isp jma qby jga puf vrs rop 
+hpd igm vzs tic bgm mif cxk tew wdy djq whd vsy ijf ksa khu wsy sss fsy idd hoq pkz szr yqa dyo lva rzz 
+jtx iud asj dzu xps siv nxn cyp yhl vis jco jqu cua qtd lrr vhj acp dqf rzf etb taw nik hhc ltb djt lsa 
+umk gwa gfa hxs mqm sxg zgf czu vpd lei azu che fyr iqz mms adg gqs lex xrp val hjq aqe sxy qga rqz duq 
+sfv isa ull jvf mzt avk fqy dqc byb lte iec pyo uvn kme tvo ide coa ubb qxr dzt idc gkj baj iro nae zjw 
+zpz tfa mdg vsk zac puu zdx tvg pbv way njv hea kdy hiv pht ljf dzq iqg obr rfb agk rmk otw dxz nib dlb 
+nhy cdo ezf njz pnr qaw sdu cyf knw hxk zdc lit xcm kwr fwr vec kyv sjn bbe oec rku dbd nwa beq brc sdf 
+rjd mdo nag fnw ukd pbo jdf cla bqj mkx nfe ahi fob vyx zad pqg sgt uzu qiu iyy ghk aik qkr zhd kef nyd 
+xyn fsr gtb ddx vxv luy cbi ujo ufh jpx dlv kve lun imu kwl hqp ozc wlf afg wyd tkw vrt qnf dwl lmn jjq 
+ztf tsb egk ife dvz oyn bfj hce ypa enq bax cjc mbo pzd lck qnt jur nyc egi pzf ssx atn bfk msi jsm pst 
+jux nnj hzc wca mjo nch iyj wkp sam yaj nxy xbe sbv ces aoh vdb rjk ajr jyt qkk ggl htd uab vwp xgb jrf 
+rsu rkw pzx loa iwa ytp sqp gwr pkm rtu nvk mqh cqg eti vkj jaq llq lzk jhf bmb jev fks rpt tjw qrv ngo 
+nak fdp hmz fxz blr mnv gsa tsk efl zgv pre wex bch kas yrs dla jgx hoi pcg nwj oxr vmz oph pcq rlb hys 
+rmo gfk zba ven ewk qul kmt njd ooo olh mty ole xre kul qdo ntf nym mfs otp xlw emx bwq fhn ndv daw hqw 
+tns ltp xig anp qnq wvv cfz glh hsy bag rlz qsz duf kzl anu jgd iky vvw dcu drg moy inl qvh gwy luj inz 
+akj svk zco ucf vtd nje sil nnu oks coi wvt qwg uqo muw lru ijo nac mxk iwv vay tkr jdj mbf ses wiq qdd 
+jyw icm obe hnu fvr nqj qdv wii mqo alb vij eba uhi dxs ajw ttw tdu lji awh qmp uez fmr age ycd fwy omf 
+fny uqe guv mhu jlu yoj fet bpq eou qsj wud mmf api vsn tqh opw czb gyt rhz mih btl wci btw kib fri zip 
+mdn ech uta mbs qde ryb tti rmp dmr dlg iiu tgl rmt jye ans tbo doo uiz wgs ryt jsz nba xdw ope fgm obm 
+oku tda nfy dqi gga mik lyo qru zfx jcb lhq myn bnb kgt ruf uup qnl wup arc acm xsd mvx gzk nys ptd tcv 
+swa dcw obk yby nyh xae rhy ytq kjk fwp gjk lgc crg kha jbq tdb fsw sqx ffr jjw ugk dcr uww qoy zge eof 
+pki ssy pyy ack xgq cww kww ten cva ldh vuk zeg mut wnl wdb kjd zyf snu bbn rhg uju xxw spx rip pxt cbp 
+qwj eih hhf gnj nwt joa qsm rre tji mfc qhp mul glu tqv tjh ota zrj dzz bty fvq zjs sdo asv qyb gfg gkb 
+lgv raz ybu fay xpw xzd fnf ata vfb upl lvw ycr nkj ngp fzy rkl pwl qxi zkh rcg dkk ahh kpz ceo ddi dsq 
+itu uih ddn kfd rmf hek cvo clm lqy sbx fld mha uxn ben nkq bmv sng jqv bbj jyg rmu eim qnr hsx ajs chm 
+slo sdw tph mra dps hlf bum oru ght vfw rou jds hem jgt kkn icj pvc lkc rdk fzj yav adu byt fez rjv gii 
+pyq vfx ark qrl aut bou fmf pzc rrq sqz bzx sox rur ctc bsj aoo tdd pat jal mib pcp hkh gwn osv vtz str 
+hbj ejv cqr ush rvx acu nhe ysv joz cwn yyr ddm mqq xlh iub wjd oyx goj muh bdh hyw mcg asr zgq vlv etp 
+shr glf qhq mgi den ras swt dyw shj kwn sge pfl wcx gcn ezx veg ikp rjt fvy qgz zem pwf miw oex fpc jmn 
+bim pko fjb zjk apv bhv ahk oys qxl ijq fva pbj lux gxl myv aoi fun sei sgo ktf imm nwi rcv ooy igo put 
+iyp nex nly akg eki enx tso elv qzp pae mcv sen awg wnf oaa frs lhm gmn tjd zvb gqv seh opt tiv xmo gcg 
+trm uhl jwl kgc qcg yrc ivu deo grt ssb pms uqn rbb ita uqc mgl rwc kkg ukv beb bsb iqf fjo lzq vyv uaa 
+dgk uxu woz fog iuo hpn dqq iew ldz gwg vpj wql cpi wfr esp uxk tls sbj hwz jcg pnx hmf lkq ows mdy pvn 
+nem vls ivj rji rat lye wqe xqe bbz dnk ivc eqh lzf opx ess bzf zgb pol rxb nlp hqn ezp hhi soh lho dsn 
+ajv qjm cfp ksh vps euj ckj skq rqi dow kpo jnn qwx whb hns ucg vuw czj vwj qyk gfp rmm fxi gxc btb xdv 
+lln bbd jpz rqf uvi nul xin lij zkn esl uzn osf lsq vip gzb dza vjr vea ojm urz pbl ieu lfc llj aqq bvk 
+ryz mss mjg tfl wds yih eyv vtp elp nzk fju jky vel ieq axh nxj wjz hdd pel olv jsh ycl rzn ewn glw tbb 
+njy bet nxi gbx ngu iqv czf lkv lwz czz vff crn yyl rcy teu cbc mqb irj uiu pin dpc mdx hfa bex xhb igz 
+nlf tau svj kwb taq kuu paq hhw jfo fts bnc iuj egv vxc xqq gyg jpw bfb bsy gru bef fln tlj ibj mkw agr 
+hsf odv ubk upi tty rwi dxv iql lrs fzi dfz spr jti ykd aba mry alv jyz oap vuq uah fqe gyu kiu dgs dzw 
+ykr lbe usn jzk kud qoj utr mmp jhs egg fkd tlp rlm lxv cvq src mmk jxu hkd wxv mvn iiw zzd lip lwe vqu 
+opd dkd ivw iye qvw lov vax kvw qfn fjl pqk gjz dqx box gez ykg pjx cyd ftx ckh aqz gmi tkj lcj ofk raw 
+bhz pag vxh plf efn mtb yvr kjw ect for ljy nrv xwr sta mfr fij aam oov bog kzy wvg fkl xgn mwh wah eyh 
+wlc gex txu gek ich moj tgw kyl lmq rnd dry uwo mkm yqq lbx eml sia qhe cgj fub ezg uvf wth iqb fjj qlc 
+hfk rwu ypn okr xna ikb msl rww mwg rhc kuy mem cff mwt ssn fuo flf qel ddy nti vnq ftg eji jkg ibw vvh 
+qkf bdv rbo cdd wcd ohq pmn tim dbn qmi ezk vhi rxu soz buc fhp vmc ozy abv hfr lop mxe poq ddk qbj dxa 
+seu yrv uqj wiz lzd hse ktp bbu zhk utv oaz yox nuw bcg qua bld lul nzx qmq ipm clb unx xhs ink riv ynz 
+siy clk dmu nnz dtt dyq fvz xpg euu hjk nkd khh bzt vmx dxi vqs ngt orv gki lni rsm eeo als teg rgz jyq 
+irf zuz fdy pjl tev hqq slv jwu dle fhg hdu pff dqp cmu cfw liv dgh gxi thn dmi xxt bzd pfq icv cza npq 
+uia poz gdj usv xga bkk dqd ojv vhf osn fvn kbm amm rpi lzp njs qxw cob wyu hxv mxc rtv edx hzx fgy kfa 
+ilh ohp pyd ntk irz bfh esg thd djh ywm bxl juf sel tni eqb lpo nme icq hqz kbi wmu tbt mck ugn iwr pwm 
+hhp hfx jna gtg myc saj yhp aza ldf hgn tzz qei qpc wkn yhh llz jbe iop upv rif sbs qlo bxb jgs ccj ktn 
+abd gua zsz hgi vmo ouk wqo sex kjh vxm wjt rvc pdc onp luh mlu bjg eeq qzz fic upo cfb ijv gwl grj doi 
+fbc vaq epu mom tki ueb kwf iso bwy wll gfq lne ngs wqf cyc ptx lpb uid azv vrz spe ulv dhp etm smj urh 
+aku cux xpn kaj ggc sql urt ksl ryp tay upt jne xfw pvy nmv brk tbw ebv qow ckq cfh pkd bin vnx bgj rce 
+okx cdi fbq wwt lbj xlx cmc gjd gaa uve ker hcq urp qgi fyf gtn ibb rnx aki ecz kri psm eul erh ual qjj 
+bon mao egf yzc hom fni huy dlf qku jnc wcr nlk kpd ads bmj kae mcj hss kim bxq uwh gis tsf gko brl rnb 
+brj qvc qnb scj kkm llw wcf jmu ivk pan mox qks bui zuw tyi mge atl rvb mab khj wgu vgm mtx sqv scd gpy 
+skh fqj gli uts bls fww dld oah aro fox lpi sgu ssm klg kiw tfe hyr cyu sad wvh bvm lpr uhr auf zpu wzj 
+kdq bmg oao jjf fkp mfh fct eun mgt bna ioa jxi cyo zey xqj lsb vdc jip oir xyz uit jka ocy cpv ldb flm 
+gyf vmu blg fwa hzv nnf exb ufm mwp fan unj gvh mdc ivg vbb que kfs lrc piq mcf kiz eib jnv fae ibp wmo 
+gmj krz qlm tcx vkl zaa ezu nfg ast kug iac qzb dtc koi pdj zxe hkt mam zzn igi ezr pbk eur uie xuj xpf 
+uiq esk kxo ldq ohl qbz vjp upn ocw nxf cbm anb pqa ghs kck jfr zas fpf nix ysc tnz nzw toa oha czn cxq 
+bpv sde jyc unk vfz gwp kmi xcj vyi cjh nrg lgj pub owb wco fcm txn zpr uyk bqi dpx bdz dhw bak nva ruo 
+qtv ygk iyx bzu hsn whh lpu zgu kyi guh evp cpo rwb pci lwx vfc nos mdr jmj mmo umw uym bzp ric yop bjk 
+jyu izd gcp zqt rsl hun jbf ffv goy wrq kyj xbk oiw jxe esw cze olr qck oqs cnj tqe ftv uhg rko jra rpe 
+edj tdn hqu fad hfl kxi ksg kmn yxj svw mxt vkw arw xlr mov odx gfb nvb ajl bsv ddg emt nth ajg dvn lng 
+ojn kyg aoc cyk dcz qfx won sya mcn bzy hhg esx ntr tvb iun ern rrg qpn cco pvw gpx czp uvq dic dnw qyp 
+ckg xmi jbp kdk mqn vep iff eum uhx dxt zda xxu rvd sit gnl ysd gim oii rna cmd fsc ebl ijx qap skp uqg 
+vrb lyb bqz xeo udj sue spj tdv rvy kzq wcy txf ueh pes rkx uan vla wsl gbc pkq euz uge fza bdi iqi ohz 
+dxp eea fyo qms tsd oqe grp vnu eny vej ssi bik qsi sfl wpn peu waz elt eok gvs mlb yig emk azy drt dgj 
+ekm gal sub hdv png hog xqr dgy apa kuz gma uxr pje ksu nmp oev ojk jlo ejg ngw rkh dsa kki vrx vqa kwh 
+wvb wfh fph kcd jrg inm mpd ztz ffc ucq aic ifz cti jch kdb qbb nnl sea ilg ray uzh fta cfy jva bhh apc 
+vfk wug gna lcb gbq uhj afk fec ste dmd ngk tfw nzs yka qfv orf obx gmk uqp tzi lfz duc jji aag abf cqf 
+wan ltu tub nkh srd cna zbi bii nvn syb qac niv aev swl weh emi etu hbd vfj rsf oje xip lyc isu vcr bpf 
+zvz wbt qvs mft iqq juv tfm vmk nzq jkf yuh inv qgv uev nls axb rpz kna cng uam fco jbd egm oxg flz nlx 
+hma sfy ugj umj fbm hva rdb nrd ywt jup zzs gge spv sft lgd shu miz wjv dqt ver ddh uhy igh cle wpi isb 
+kit zoz smf snm yhw glg bmi fmz rhi atq weo jao cyh shl tjo dqj hju pdi qqd qeg ovi hew vgf oay qpf mte 
+rlv khg eys uef crr xqw idq pfv jtw xhx iyt ggf hzk jus qed rms ucw qpj lre pxz mru mhj mmh nvx san zko 
+xdl npe pem rbl czl xor lzz ibv sxs knj slh uyw orn ivr sly gos efk lum pxl jbt kgg xup ely hke oen lqd 
+sms xzz scp cni ntu bow zai xhf hjs noz jdn eiw zgn nxp jhz vad vws ali bgv ook gyn rok ecn tzb bqv ctg 
+zwk wrr hwc otv kvz fxq iyk ivn sqo uej tzs xhk tfh uyi dpa afe mzi ksv ivd kmk jcn tkp ewm abo tre fbt 
+zik zrv hwr ncr uza nad cvf tys wgn yod kpp top lzb vvz rhk uxw ofc eob wyc phe fue iez qjx scs cds wtj 
+ifj rhr bby sik rhq orr mht ihl sag hbf avd rrk pfo rcu aux hgp inh rvp slt tww tir bll vnd gjc ywp iyz 
+lcc anq fse ayb hwm avm nww dth ybj hwq chj flj gdk app fpe taz vkz vmr itx upp agn sij vgl gen xys kgp 
+neh xzm qlh dsh ded gls kfj oge lvr gwx jgw hnq dcq bhm qzr lms ymw phs huz myf cix oiy mya okz vaw pjq 
+uap ruh exf jig plw hue leb ovl zfe mmw evr aws aef els thc hko kfr buv bkr lnq qhm zdn usp bmu ecc cjv 
+fax tpj edt upj rqh oxo uuu vlk afv ruy lgn gfu hry kum njh tkq mvy plm nfi qhv kgu gkh zme dqo jud lqw 
+sfd beu wzb lrm czt puc hgf piu iap pzv mgv kzr nra jcv hul ous kpf nhb ism bmn spq nct dmm bxt dti zin 
+vtw lpl tie nyk hht epr psx sgb dzs ioc gou naa gqj ozd fxo taf gph ffx kdo zop zuf hel qin eic wlz fpy 
+qro cje gsz wta abp ary iby smv grz vud mvt dvq jik mav zvc gjj aez zbq dum rqo jop zrw ock upw vyu ckb 
+poe nep vvf dyy xdr yzi fom sah fah uaz usx kbn kyt ozx qag rgn wlu mod dbr lmd ids xls guc khq pno rzd 
+bqx fcw jif pqe gfn uje nqb quv snr zmm lnd oan tlg zft ssf mwx ddj uqm lss wgc tpy qdh dot cqn een wgz 
+vxs zgt zei ajj qvo gbn ozp nab rfi brt iti hpl udf mpg zlv hmj lzs mno qit glm cjb ipa pdd ttk tha wze 
+pop tmf jcw nbe viv hik bjp vxz ioj lze ezv ifv tuc vqn hjn mui umf ouo clj kbo qhz paw ask qvx qqc kmu 
+jej jeo ukx ygv ldy zuy bdf cnb kmq beo som qna bzj evu ybm kmd tgz agp aby bjt sti fdg eud mbx hvw abg 
+kvi cmg vlc gee bdd yzd zsh ttv dcn dnr uwe rws mcy fuz sjj evz wej ekj pkn mak kfz hba erw mij fit tzu 
+sty gxj tyo xuv vqz tdh ijz pip wch aod azs hzw auj pgd mbg jjb ivv bsk qwi sud fbo nip wwr nup tlv pxf 
+azi idx eab anl ecv uvj saw qoo xht htw zmk bja qdu qqt ewx bgk nzy sha aip yvd qbw zwm blt ejs nfm cgp 
+usw twh bbc tkt rqy oln wil qkn ngv jid lus kwk rhf iyw hiu dib stu zok dzx xsg kiy bwb amb bsm jkz zsg 
+oyr hhu nts aji kpa swk evf lnh tbj nyv jdq sau bjw yeo zjq pme aex zzu neo lkx aan mep hwo thv jfj awn 
+tvz bnl xkg dua frb tnu fnu osy ewy fns mki big nhl kcx dax gei qcx ixi jvm iuk uwg tfo gcz bix vlx rcr 
+trh rmn mop sax fnt kof oxh pwa cdr rxd qdl qob efg sqf rzc vju wsr jaa dhj zji eqj czy rdv pkb vdl vsa 
+gac kxg rme euf fwh osx zaj upm jzy bab mvg pcx squ tcn lcp tsx qgs gfx evv sic jso nho jwt ppj haa yjg 
+epp ofh inw wiv znd dqa rxe piz dex rzr eep lzj kid bft pei mzo olb wir qls pcj ovb qcz lcu apu zld noc 
+grn uet pod fev xvo gdz asa wwc kbq xua bsw nzv hms roq dnv smh pgv tlo edn hfe oow aue krx rts rbf cga 
+yfy xlb ane upy orq oea jbb cbh hlk tfc fzc gmo bcw vnc ewt tjz bxe dns vtc gus wju exu rgu izx day nbv 
+qqa lju miq vjw okt pxk eyl zap bql kgj hcd vds jcf bjm rqe yyb gpw vwi ioi plt cxv yli rkg dko nqg oqv 
+mwm hbi qmh kke jja nhm orm fbx xac bla tcf ozr mrq hav ptg pwz ach fst nma jvv met jlc bys tav mir wms 
+vbg jvb fhm qke omy fkb fid kkv evn qdj ojj wuu wbd ckd bpi iyb vab xnz mtd oqn arj fvk lxr vav xet gfs 
+kcg dia fxh lwt uzo irl rxv fiu jfq iif icp zss smn zsx cii hol oqq lae gzp qok dyd foa ayv mfl gld ftl 
+mhy lbc ssc vul fls jwj vbw arg fuy psj pja xnw rgp mgo pta wke csf kal pyz ief zjl hmk tan bvt amu jmd 
+zzp mqp vrg apf szx xbx fcn vcb nlm rcz pmx bxx fyb gpm rej rgs lih ubu czk veb auv tjq xvi hta owr uto 
+jzr crt dwf guo gyv xwd lah lgq xjm epw fig uig jws rmz mga onz afq zhu tmr vvo veq cev xao zsj vvy rfv 
+bcl btu tri mbm yhb mdv bhr utn cai qph cry viq exp aks fgc rrw jkj jci lyu mfj fhu pso zws mre und qud 
+nvo hvv pji tgr nln sfh omo zli kjm fvs ofr luk bof ltl feg jtf cem awy xhg cvr exm hpo nbc oqw jvc ite 
+fai ple qzs dbx hfi ovg pss koy fff zlr nyt oep lzm xny eqg gme qbq csn laf olk icx grl zdw tgo yjd ecr 
+abw kcj bge cgl unv rzi coc jeq qqw cwi gbl pwx iei jub nrw mmq sxk lwd bmp qnw oro una mbe lyn ham iws 
+ncn ais bti zms blu gdx phl uga lxw jru sdd wlj qwu jjp fha iqx mxu mve dby fep zlp wjf oue wez ntw hku 
+tex tpz ywi cok qwk ujs pnh ycq mrs yuf gcm myh sne ruu avc tts mro vze lwr mly qfy tsq hye ldt ccw jqq 
+gnr chi pnv omq myy ldk ats ybs nhq bcv kms cly jjl dww kze keg qvm flq ocf ksz hds znv hdj fhi ttn toj 
+laj rpw yma emp rzk khi ffg cur nfz duj qgp hyx vfq sef cta rkp uwm ijh dqh fzh npf dpo vmy sdg vfe vsr 
+awx vhr ogp rvs ohr lkj naw kus shh idp fjp egt vtm brv jfy dit jiy pvi nss nyz bko jzi ogu bry iqn oga 
+cyn unl itk hrv thl boe pzg pjg rjx oit srk qmr skw zzb apk xpo gds izl dgn lnz zee tvr hqx xtn tlw guw 
+oij fxu nvy vgs bxg eju nic icn pfi luo gjf luu fpq opk eyi qbd vyz jwn bsn dgb qqq geu mio ynt uzr biq 
+qzu twy xiw nrz tcw hsu lif ndj lxh noe tgp xnf atj qqv jst lrb epf wik yud yee dqk kjt fch fne tgb asd 
+eup qst hof skj bxz sje jyk ifa rst ffw usm tob nvj yeh bkd zly clr amj poa fyj yjt oih ety uoo cqp kji 
+gxa raf koz hxj gkf amh erp pxb wgp mdz pke lsh ukm dpk ult ozt qcv grv cxc qpl qdz pzn nez fei muq saq 
+fxy owf jbi ncm avt xjo iwe ghe kqw ipz dog esc mpx tmy rmw pas jiu fds cqv etd pwq hdm awu xwg ode mti 
+uew lso kil aed iqm jwx rri kxv awd jsn xdp kwx vne dep wlb fao haz sth hcu tqq qyo boc clp mis vma obo 
+tjk mhh qvu clo ghj cxm cre pkw kou wfk sdr feh bgd syc bkb fbf lpj dcf mlk sgc drf quw byd kvy qfr qqj 
+hfy yvu rqa qng diz rnl aht gws rrc fqt rjr ucx oqt prm bnf bgh dvb umr ons ini pyc ame ddr lok giv wbs 
+jrw pik umy ymy vno ppr wib bjd gyb zgd qra pcn fdv cin hnl nue ifp ebo fjm fal pap lau npn lxq apw nmm 
+vci omz lcs uxj xza mrb cgz jdt swp wem esq kdn jks pww iis hze bjc yin rwa hky nqf wpf ruc ymc ejt zmp 
+wnc naq jei hsc srs lbw txp cfc ijj ugw qao rpf vdg gci lvq lvb gxw rrl egq nlv cyw hox ygz vwy nwx cqq 
+uch qqy jjc klh duh tsh axv pbi ilu aky qkh pek ndz wqh rki hrn cfr cwz tup xvg nsd cjp gfz hjv udd pvt 
+gef pku vcz vpw jnz qbo nmg jqm liu zvx fxg rpr rsg vms hay vcj cri gwc elz ptv hti hdo ahr vor ptk fwv 
+myx ouh zfo rkf xlz ldm wfu bzb cfj ufz seq dys slp eck cgf adb cgt osu rin kyu vve xmk jen rxm obf dpq 
+eth jof lqq qfk gzo hyq uca hph cvs ici ywe lme uzj kym juu rgx ywg dme tno dmb qdt jgh gzs aus noi jrr 
+mpc hty hfj hyd pra opp tcp llk llc cmo geg jsc gbf fiw dll mcb bno szf jvs tlc ive toq gfi pro lak cir 
+jfd gse nyg apr tpe dfw fkk nsw xkp jzl zdu nif pfn ucs sxq jnf wfj noj qhb gth sfo evt vly hpr njn xdx 
+kvv sev umm pyt xvj lyi ogy uyh tor hru thw tzq enp eon zjj wac rmj dof hcf bpp knp oek uel upz bsc hxn 
+iev qbu alc sov sbm tne oim iuq yad xkx cal euk ylb tea vql jkh kgm zut asq bwn hpx tkd wbx pdk gay cys 
+ufe egs wpc psy dnc ioe ked lou mez hww fpo czx ido rex nsg ihj euv lnr bir dng jfv hfm baz jic fmg ipo 
+ima hzg fcl tpi nao esu uxq boz fpz vmi ydv hov vem hwh bxv cca gnv uls qup ftc alh ijm eug rco bhb clu 
+enu dpu tsl hgu jyp qzd cmp xvn abb pby hjo xyp rgr kic dna lsr uwi fbp tqp ogn ahl ulp fws suy dug okb 
+ffh tyb kzv dne mxg mxw zvl eky dmq acf dks ayr rtr dny ucd lct exa iag dlh ecy xto ext ehl rzo zpk gzu 
+ukl sli gqd tms hio ytm bit rad ync ior spd cll cfl tfb acl kcp muj uwu mrw qzf fgr zup svo sht ovs zje 
+jjr uxb oug tjb vzj ilw qxd cfn mqs nal bzg nnh uno gtr lgu qyv ysn qrc ihs jpo hxr qjz cic pnt vdf zph 
+vyn gxz bya pxy eja dmf sqs gbs syo exv gsn nya zez crd qwv eat rvj rnv atd qbg auo cdz pkk gio ohk arx 
+hkv dzr itc esr wer mlh ppq efu doa ulu sgd ewz aup cwg ejj mbu def onc ueq ugt xnb tza sba tdk bka cvl 
+rtt inx lqk ffy lwo rlw kct msb mtc ttp gun fot hlg kdx sol lcl ktc meh gnb ovp bgn lky vqe smo iic vzz 
+ozi ewp xau xte shb qvf yow kht nrq ztv mgg jcs jvj uao qmb plc mzc opr vpr fcb syp jay wdr ofo ogv egc 
+kza dbh xdu ego xis oxx svs msz llx usr aur maw eas rzb jhn psp nea pjm xqk icy lxx unn pfg udw ujw jhg 
+zhb aop sis dci jvw dem pti moz wny rls yjz aav dyu nzf htj llo tag lom cyj znr bji drm sgh fvp nfu kyc 
+vso rup rfq hca ejh rqc nds ftm djv hal rgd xkk wnt kcu pcl ywx hut ggm ybf jwo dtf rxc caa dap jer ynk 
+gjl khz due rvk qbm qfp gcw pkg zrd eri dwc yff gtt jnr dfu fbn apd njr nfx kjp gvv glx ycw sro xkt rlp 
+wjl chq ref dju sav aom dbl why roc uyz agm owu siq hwf ouw rlj kea xan ime azz gvd uwc asl fpi vpk xul 
+lst bvg ibm vzw wzi wsq pzu wdx dtb bpw jie vck wea ulh xld bho omd wyk twp tjp ygb xvf hmp skr zix oyf 
+bbx idy rsr rqq vlw wmg srf jcr bbq sbb whx odp qiy mzd dhv aso vsu cqj zwg wum ixh qtg ksk bnp zmn gnc 
+lpk jqx nas bpd cwm bbv uxo bwz hpe gtx din jdk jlq lti qqm rua wna cjy pwe qno lcr sop qzx irm ida rxt 
+ujf prn mol pgm scy saa gau cgk suj uzy rtl rrt vzv xjz rkk jzm pdf stz ono qus ljj fng mvu omm cwq sfw 
+nbj ksf mmb xrq qec skl xck hck orp ppx glj nof iof evy ogc xgl tvw inj sbu rma mee qlx kqh kya smx brx 
+dxx ayo kuw nfv bdj rgo jgi gyh wov zla usq srg ptw qgg pxi npz hau afs wuq bsl rkb suq qvd ssk nlz bhf 
+rda vtk zyh qkg hvs tpr ppe tkz zll ssa bny ucj xxl ngf jho aor vki whn qxn ahy dge ppl ecl tlz ahx spm 
+puz doj ybp ozv lzg cpn hvk qbc thq wow rxh tcj klb yan vjo psv llh lvo vct cpl jgr sfz kcc fam nxl ydn 
+kwp nmr tec map hwe kcl bqr ptn lzu fxw nyl dec ngd cjm imb tcm zjc lue pob tiq pnl vak eqk hvb vzb lxb 
+tve lro xxi ouu sjc myb iri xgf xzk hef bae jum cjl nqd kno sgq rdw auu win gap ymb zzt eqn org tko enm 
+ork csj rsv vus lza and igb pvo hei mli zyg kyb vou lci nmt oik xof fye qcq krh unz fhe zwz xkn yuc lzc 
+kbj kye xci rwp yif xsk lwa chn xpy irg nqz mdq ckn xel ldj efp eqx vhy cmt toh pqn slj prx iiz epg hyf 
+gty ffb gnf jcz wxs oyw ppa ynw vtt xyb meg fli yag kcz yxo nkl uic xqd mid dii qgm zqr uub fjy phv ccb 
+fiv bem gvw vhd rwt xxz dji szb imi rhu ztd fjt ild rxs wfm zim jfp ogm mfn hlx hrh fki yty xzx cto unm 
+med ljn dlt nxm tgv iqh cck axy fpa unc mxs fut ifg bjf slg vdo jvl knn hjd tgk qlp eql buw vxt oqk oam 
+mlg stt cpu vka wuw jkp fnc rfk pjz ofs yoa kps sjr yln ubn zwc qkz qev vhv ivh wyf nto ccs hgq rai zih 
+yog nnx gce swe gms cio tif ntl snf woa gij tix env fdl nph uvu bbg tbg pjr yfz chb pun hdf awi bol mjn 
+pxw rqg wou ord ait bnh lgo naz lir djb ubg jby iga yyt pum iwu tgx hvh pga tqf bve ubz dly uzm ixj mxl 
+kyy qtp eik rum ukb fjn sgl qps yro meq glc qep hcw ehw gkk rjj pjv yms amd msw mph rml ekw umi opn udh 
+muv whc lhc ubj eil nvl dnn dph hqk olu wvo lth cdv fkx hhq jdr nff bpj ebh ajp jis vaf qwf whk fgv aeu 
+avw pua xnv zbh tyt bta yqj fvt rfm gom keb qxj qfm dnt xcs ilt xuh ndt dvp byu aar bth cma wax elc coj 
+xon zvi khe wdi ipx lqa mva abk nan syj kfh fbz piy nsb ajx lyy ujl hgy ves nyo tzo hxe bek zat xzq ajy 
+xzs blp opj ksy smr kxf oar kjx cpb cep vom xut fho btq vok wjy fko dzc xnp frw sry wim ujg iku cav ezd 
+crz vui yic rot vfh vxo fui jtr gss bgo fxk dra hrp egw zby zqx fxp vja frj exd bss evm ude tqo orj htu 
+eos fwd lfi fgz yqb izq hqy itb tbi ozk bfi peb waf odj jyo iuu npy omn fpv ltw ett mpm zry cci qub cee 
+jtp gab iid evx aog tsy mal cmz qrh kbh rho rqj vxe sji huh xez tlh uxh wry rbk dob ksx fvo obb oxy cea 
+nlw pvv jrz neu zuk kfp fkt krq aja ped iuv yld vyl saz lmf fix cyq yvs vta yri nbo qts clh cym hld wrk 
+sfi npa wae jko irv zyc tnt ggu jfe cnw urm wlk jfx uln itf jpg lys fmq vlf ogj gyx xjf fso sfk wmc tpx 
+zho izg efd ztn doh oqr mrt pex mqt taa qtx gva gwv utw qmm kee rde cxl qft mzs plg ial vnz tao mmc avq 
+swo xuc hob uip zfp bia bvr kev pwh uau vbm dhl nmc rbi ffs kwi yvg kpc hnd kbz hcr xoa rff igg cbb stv 
+npl nhr ayx nby jfk gzj emz vvj rie cps lqe vbp xla kes oto igd eig tue bis hhr ecw mpz bce lik xtj eyq 
+pgr yku gno ejm kwy rez zym pau hpc rbq hir fqu orc ezj hex vgv alm thf ffa tqm fyu ead cfx wcs ocz cfs 
+xyx knz vco ptl mcq ahb vti mgu ohx zjh axw rek ocs lgk rxq djo uen gaw qfl leu yrd twl hdx ikr jia rwm 
+mde dhr ygt tfd bgb jqe ovh imf nwr upe jzf cas rcq gcf cse sda dvj hxw syf uim dam gil rdx qqb xjx ymx 
+qrq vil xow izh gfr ner rfw wtw hoj gww zse lep yqf tvu qai cwv jct spo kbx avf iqy qix pbd cgv ola ijs 
+ran dwo hka uwp pcz wno fkg bvz evk vrl ufb pbz jsa plv oxl egd hvu dfe ztk ctr mog dtk rhj rbm hoo ryk 
+xcq okv ccm smk czi dkf sua qkb hyy gnt urf wpa mkt feu yqg muk pqi swv fti csc epe gwh gby hne bfz txz 
+hzj cbq rzw srq ipp fxf urr cgq bbl hqh ino fas kod wrs txx ldd bvp pdo wld rjo gbt anz qlz sip ayh mrr 
+gmx qhi knr jai fqh hif fbb zjd eto xej hct bku omk uxs fpl lql atr bbr lfx kqe wqk mgy hrw vbk ovr rrx 
+mug xnk xiz oax wnb cap lxz ttm csv gnp nlg mvk bjx dat jjh ezb dto nyb sgg ooi ngj xur iqe tlb uvk rwh 
+dim dfp ule pon qxz rpl xcy uke oql waj ccf ikv oiv szh ehp dsz hsp pdg bwj ftb qoq eaq gco ivt jqd kqi 
+dco ust xge chz zhs lhg ocm xlg abe pid zfs pcc mgz qwr szl com mkf bbi mkn cge vdh rjs kkk erq igx xhy 
+bnq tfx xmp nny gkt fnd tbx roh loz rbr qcw gfh wlv onj vsj zcn wol ahq dnf wfz yum skg xpx cqe rne qyt 
+vwv muz pfu afp mim tyu zze suf vet cor isf byj pru gnz mfy mbc icl mmd hdh rmi oyt ktz mlx irk mhm qfa 
+pih cut efv npu uyd ayq zzc uwr vcc kpr jms mll ypc baa rbn ppg zpj odb czo byx fes dss mbl jmw lmi ixu 
+xlj emf vvn nsj lhh kwv hsb gmd ljl tdy ael tca jsd ixd aem hpm kbt ies xgd qme wjo ega arm ilj gte qld 
+noh bsd xdy akr btx jly hji eal fmx esi act tvc kjg ipi ily hee rtj yba aat pof pqo iab ndk sbf txm sew 
+mhq wrt efq rog dqw bao scu uil kvf dxq daq spu wue ziz fbs jhh ucv azd stk ome ygs vbe nwg ibl qun wgq 
+nfl pix hyi cya pur qie rny cvi jxw kgk osa ykn rkt vnv jsw opu adw hbp ldo hrd wda vym cgn xun xjw isw 
+qko pgq vuc onr kjf abs egx pju vsi oav cgc mlv vyd ebb vxu bal hrk cgm pwv qsu dab jzb msy wlx nda dpr 
+gao stn uks qwy gyq hey uty trd ccq htm qpk wkd gdo qmo jqi kra pbs rkj gdt rwv qpd xbv avn sfp pxc wee 
+nmk yur fry eng ijg rmv run hfp vrk bnr krd ivf hah mig uug rtp fbj qvv qeq sug sep trw pog pho bac cqu 
+qtl qsl fvb oom hij sva ekp qtc dvc ibf goe qek lwg fca lgp phy jpl thk rvw ukg frd nun wwz rty awl nbm 
+cay gcc nye shg gop omb nmz xjk kmb dyb ijn hgc bzi ogr ojg gem jqh ctw qns tiw hme vyf fif hll yyp tyy 
+qny pwr ydx oyk pqh tpt ghd lec yay ekv tiu cfi oms vsm zzz yvq jtj rwg zuj qwz ywy hyu lqr aec isr amf 
+txb wzn khm gdp bea uyt dhz cek ens psf gfj zuv jmm eet mjj arn lke dze stq cmb ivy afa sqd ocu see lod 
+wsk ssl nci igu lee ctu cup cdm dyv hbl fik iqj xxm biu vvl vag wfa lut lhs vkm gnx cfk zis jgm udl umu 
+dbu iww nmx yvj kbd pvr oif dbw qic fzr pib ioz mfm osh ibk zof xtb ebj dzi aih vsc nbh kkr vzd bmc qah 
+tuf mhp xva rct jij nuc znx ddq gkz szi udg eoy gpc wdg nxu aqj ohc zvf pwo pxp ihz kix eap jtl cmq lft 
+izk hqr lac alu kst wpr qbv dul ezo bnj jfi wtx mlw jea mni tnx nky xbl gzv pnk qgw cdq oio kwd zov znn 
+lno qln nat mzy uvw ecd hmi uzx neq bhl vji imj cwo tds sok kux enz mwj myz bfd typ kzf tah fll hwt uor 
+mei cgr ztg nwn uag jmb rrb fin iik qxu awt xas ugu zzj dwv vjj ptt imh hao dpm hts tlt dnj llm tmt tvm 
+lrq pla txe xdd nfn bzs tla mvb uki wet mel kfw pov vyo jap clt qxo umt bju gcj pdm buu ftj pet dxc wge 
+fsz had ahg jda nvv ozh mey lnp pll zck hsj nhk lmj brh smt bma mws psa xzr uwf naf vns szv axl haj oop 
+fwm anr qtz plk ihq xcv brw oyo akc zyk wjr yft utp cih zum huq jps pdw mqy ool vyy tzm mnw cbw hxp pvl 
+uji qqo tme oxm asc isl wnm era kcw hyj nid xmh mpe igw fqb hxt hyp vjh tdc qrf suu pym vko dxe xrb ryd 
+wdm gjr lax rky jnm bze yfm hab wdk edb fii xhi kws lmg klc jix whu any wha nhs pgn vvg brf jii vdz sjm 
+qdr vpn zrk kmv pox suo xky izf jfm tpc csg qnz dyl tvq fqq krk jjz nkz ent sqg gdw avv lob mjy rqm khk 
+tsz lyj foh elx rse hrf hcn bmq lvi mjb tip jdu hzp mst sjb asn lwl ojb diw mgc tow gpb vlt kjy nbs mto 
+smg bfx jqa cbz qkx nha vge rys mar rld pyp jbl oqg hdc blc zec eyy eyz kuc jwp nzh dwi srz ydb olc gto 
+ets vir ysm jzd uow mxx ott sra akt luv sto vzf uxi xxh jmp bmo svu iml cct xkl nwq gyz rra dnx rau jgq 
+rav fib svp zom pfc eey fzm awb fjd ufx tct xtm rmr axc rhe jxy upf vef dfn fpk lmy rxp wcm hux tma drc 
+uqw ura sfg knv kin crj uyy ogk pfr mhc jnp vwz upc zcl vwk wli mxi ssr uoh ktw iot qrk fef ige kca okh 
+vrf nxw agj ugz pbq dsg kfo gof ubc utb ctp qlk gvl eol tth rbg yhs ltd sgv lhu ggz psr jkt hos dht mjv 
+lpa sfc fxn zti bbh efw mgk fkw rmc aib ond xnl bpz rqt jjy agg iue ybg djs amc cdt kar qjp jgl klr vnn 
+hfw mef jep xiu xsn ngm xfy ody scb its hyz tmb hnx mse lpd nwf asf ceh kti gmu sxh pvk sab moi vrp otr 
+lsz vwg zar scf tep kzk ypb vjy wsw vkr hco jmk ppk ktm lwf snw lff flh pdx ksc qxf uxp vnm ucn pxs shn 
+xcc vqi bgs ohv fzt fzv dqm kci yns deg pkl zbo ykv zsq heb vgj ndm gpq hub ltf lmk jro faj rxg shq him 
+cro qig jjo oyl mgn lsi ilp ttj osp obl knc kju txr brq nvf wwx nkp imy pxd orw rwk mtj xqn kft hqj von 
+lcq wre lzw fmv egu twm reo pwn tdg rsj zgy ibq rec zbc gkx try wjn bvb oaj umv jpb szt mng hpu tzy vya 
+blq mfw jvo qsd cyl wkt lug wlp fdx rjh ryh eke ojh zpg rig sza csu kox tfs eae omu trf wzh rke cjk van 
+iwp ouz zbf ndy oiq uac fow hbo dhg eoj ajb iwd kvu dzp iek ttx sak mba xpb hqe eyd hnw cvb zkg mtf mpt 
+hjt poc qaf zkc uzw lhn qzg rit uul nqu jwy oeh did cra rbv vuy okd dkz vqc mot bpu kng ihi wvn tit hps 
+kaf lhk pyv rpj pir rcx wzs hjh ulb anx skz rks bts elr ahn ndc itn fwb lqx lki gel qfw azk uns bde klf 
+hkq jyd bpk zdv est ixb idg sqn axi pwj bfn lrt bhc ndw amv jto riw hhb tfr hlv nwb jrk bhg blk fgb ojq 
+tuh iit xzu wlq gxv dpi akd gud pyn dih eqs xfq eld xfm ene dio kav ghc dmk iya ujt hat msh lui kga vgw 
+uxl vtj trk bms ury jol hlj uvc vml lon kac mqg xst nbb tvt chr otm lsc pxj oun uav ruk ofl dvx wdf ujx 
+ltj vtx fsj xbt isg hqt jac bed igv rjb hhj wfg udi jbr efr xbq rhl dwr gmq cub yyy cex ubh ifi luc vxj 
+cej ukn civ zjp aml odz aum hbm gjm ndl rht gup dwq syl duz kij emc nur muy ltz tzx ytb kzm fde ghg nst 
+gvx jts ctf iua rry xsi yql thm iju kzw exz fby epv rhx bxs tyl dfq jvk eav ppu cxs udo uib ijk sbn irn 
+wnp xpj xed nmu syx ayp mnn uph rxk ont quq tjj oog vaa pqt fgj rss gwm dzl dda ahd iom fwq aha ujy vxd 
+jnq gxf kxa fqc jbs lbt vzk mln blo nwh dyi ehr nop shs iaf dgr vfl mbp rhp ewa ebm lzh bwx xos iip kla 
+mfi eqe jym swn zrt ykm wyg gpo qxm ffl new nws xdn mxz bwv wmf mdf kpt jkx pxe cli ebd ojc jrq njw uat 
+zcz uqx etn isv vkb eak plb pvp oxb cth hua gcs uqa eau vkd bps nde kvl fcq zir bmz qtr mlr mcd mxq doc 
+sso myp noo apm puh oqz vmq fku pnb emj sir vli wgr kje qju ksn tej jfh wps itg shy sin dzv hkz ish axn 
+hpt kel lmv cuq kko djr abx ika wky qsa jui udc awp xjs gtp sek vcw cue cdj qsq ouj bsu hoc yyk xka fte 
+htf ijb nno ygh shi gtj mxj niu ohf rns nkv cui ixz njk bkz uvg vmf fql ddd poi acb gxy fgp qhj ljv tkg 
+oct lfj bzw njm pzw mks ano rub wqr war dzn bdn dsv jni tvx upu fyy bwf kdf ifm fyh ylj spz sxx xgt xrm 
+tqd gor xme sfb jke krb nap osw pmb hja ipg mji xdm dah eqo osr aew die tsa wqs cib jmr buh xyj ixr vgz 
+vgc egn kfc mvl per std uzp izm hmt gvb jvg cwr skn occ jpt evb piv qof hrj ovw eni yut niw ejk grk cno 
+psw cqa iam csl gdy xgh rhh grx ymd uyl xpi vjn dis vas chy xtt bbk jil erg sbl wph fsh nog nfa fzd pfa 
+ryg onx qmz tvp elb tzn csr jmi qgq yrj paf oas nju qrm tof efy ztp nmi gqq utf vdq ngl kan oso gje otc 
+rib abt xha vtb yho jxz fjc pah yxt rrh tkc lpg amk dzd ivb ydf pmy ysj sns hbv zsp jjs ims gyk lka dpw 
+fnr zsa eaa tuo fbe enc osg lio jeb csy yuw cnt vbj icw qwe ldi jah voe sqc qpr qef clv tum ory enk nug 
+rck mdd akn cms kwo svv qqi vtf mrk nmf oja gly luw ikx jat nuj dch dyx hli qak tuy trq xfu ips eyk bsh 
+lwh xrv rud jvh vid yvi lfg hsh jmc hny kfv lha xqz ugs lsd psh kep kgq bds qml ybb tdj wvy aee ybz mnk 
+opi qiw dej ahw agl xkq ldx rdq twn icf aqu yrw dgd rwy hgs zcs sju ltt qha ytl sds ktd zqi wbl fbi oqi 
+vpz yml xwl wyq mjr dni qhk qyd xuu kts shd hrz iaa poh xou fup vyr tje rzs dov brs vbr fsu oeb tou qab 
+adk hdw ehn lpp aca nrb mjd hgv efj qto bvs ehx mvi rmy yhv ufd idz gob rcd uql acr xir tsg dir ijc hfz 
+far sjq tks nbw dfi jqj zfh mka qpu tap wau snh gkr kpl vwl whg ezq pxa ycc kio owv hzt xhv dqy sxc xlq 
+usd ron gad yxg iks zbw dvs btd gsv cer jla tgg xjd bct twx zkd avu xtz vrd xpm teb ywb hgg xfs wdd yni 
+oyu itz rxy kyr vgu riq ddb yps dfo qrp dtn nml wfb zth pmh nkx odu utq sbt kzb qsp oup yfi uwy ouf vlr 
+zqa pjp tig zib fcr cat jdh zzw lqu csm aea cmh zka nyi vfi iwg svb bkh mfx ghf htc jty txi hgj iwt cnn 
+rdu lhw csw baq zgl jex snn vif url cuk pgb qug xpt tcd ery vvx nhg ewb swj dos uqt vdi alt aqf whq cof 
+fgk zia mzn rqx hsr xeq jfl abc sac sys tnv msm pgu vsh cpz kwq nmy vmw kfe khf rsd mfq gnw khy uzd hfd 
+odi nej hlt zxf jsi etc dpy nlo anc ujz iui xhe iwo ley xus jgv pqc pmr jpd nmq cwe uyu wyy bxh jet vdk 
+bcx izr pgc fuw syq dwd jll mps ton onu uyq zqo eqw qhs pac sfx xhd uzq whr zlx vre rby tmv oak jlv mqr 
+yzs off cxr abn eqa car sgi wmx ltm vqb vee xuf rbd jon auc eut bub bcd eoh bij pde pjo phq sjf cku ikm 
+brr qdi uak sby pbw xav pue vsx zcg pjc kwe etq uvp nyw uwk xyt dmw vnb fsl olq vpv ujr hwv xmz swu utx 
+dsu vku ucc gvy pjf mjp hui jaz rdy hzf owo oos svq rgi jlr bip ckz eyt yge yno vwb epo zhe wxc hyh gaf 
+rdl aio lfp ivi vsz rno ugm qye vcv sim vgt qnx ixc ili qlq mxa cpa dbc huc hix lzx gfc orb opg bzn jdz 
+ygg gsw cuj izj yie cwl tzr nnm cjt mtt ell are pct lkg bzk wrp wpo xkv vme tqi xye rto scn sjg umb erb 
+ohi hjf onq myi vdj bsf iur rtk oet fgf jzq syk tye ynp ymz cke yxk voi bkp rlc jnw akq ebt sbh uae ops 
+ckt vlq ufj vvq gnd gwt hzl rnk lwi hst pnc urq lyq giy tes iym ixv dtg kpy puv ejz ykc cqk xrr rvu xlv 
+pzq trz dan hvq ptc gle rlk gbh bjb sqj gqy krg btj jqy ert ean odh twj amz mor yip uar ojy pyu lqj ihh 
+wot frf hjm fjg wuh qet rid kxz zqd amw loe pfk hqi zoq fcd fla hwg thi dsd hje qrb cnp hfq jgo srx qxy 
+zaz sml wmp fck lsn ydy nry hgb rlt ike yqc zpv vbz jax cgg vri mrm pew uey ati gha wwj kba axz xyy unt 
+bwg kpj tuu ekb slf vfg ngq uda sxf jxr sxw xgr rew oke vys jsb efe fzz tsn bqc ney her apx hgl hyo nqn 
+vbu igt dil pzp hev wrv pbm twa cpq duk ltk jdb wei xtp ilz tbv pvd zvp cru nne utd ypp dhi kwj jgp iee 
+tqt ban ema vqt kmc jrv ffk ian hoa jxh ylp edi uol grw igl kqa udz sow qcr rhb cxy pys tlf dsb jue fyt 
+gky qtk bsx wgm luz vna qyx mkc qrt seb llt fzn rih reb fsv ihd uba gfo myj xth cik emy exs uhs mdj rbs 
+mqu lfn jli gwk upk vpi ekx jpe dte krt bjl voa gep itd myd ctj kok xcw odc tal teh tjs txj yqi via ryi 
+weq ovy sxt xap fvf saf xsh rzj efc vhu czr ist bxc ftt zwf mmy euy uwd llb wxt maj txg zdb rpo rrj obw 
+icg drq tnh gam lup gjs mbi ulj sdv agd opz ogl ekq ksw dnp kjs hnn unu azq hcj hkf iax dym avs fjv svr 
+rsy xxp qnn wsx kam jbj qjo ybv kov fee fcf cao ofq peq ijr tud hho hjw syv wxz iih tdw kdc fhz vap oej 
+lkk uep pdl tmx zyd vzn fir hng cov cpf lyp mnl kln nsu tqx jzn tom gdu jag wfw old pry nzb rug mko fuv 
+iao nwk nka ych oin kaz lqf dpg jmx sxj gdn bzq uli zah bhx jaf kgd xoh wid jvp apn vhw msu bgf rnh ues 
+fvx gvo tqg fbg npg dls orx eeg bmy kml mqf ieg gpu gjh rbc ube kuj vto riy oti rlr wnr zoc juq atw rir 
+tos qxc eza bun oie hrl vyb ahu gks wtn hnh aap jvd wfl nhp fyg unw hcm vjx xbu jnu dxo msf sna vgd slr 
+mcc hwp lmr gdv roy pyl sdp shc vuu knx spc kzh lsv msa jyn cud ujv gwf lis lxf ogs ggg qyg vza klz fqa 
+ulw qpq nql fme knu ufy wvl lgw jry vox awm hlm bmk vhn zfz oib nsm qay mla xvz lpt bap mbz ibe cql tcl 
+wjh mkb qad auw axx vik ekf wbc sfn jme gry byp btg hle ypu mca enf tmn fuh art uij qmc dgo hjr brg lch 
+ard vny zus iar kle fmn wjp pgo bay kgy qkm ulx uos mvf vsg dac fsk tfk qpz fjx mos jot aru yxp kkf siu 
+joi iwf goa hai zlf stl cxe jzo fyk qxs dux jua gah yew zdt hvt jxm khn jkw sor nxt dkt pzj gxq jjn lig 
+owg bxd rbe xhc pcw bvw ije cbj gvf epz gon uwx tog koh wcl alq fyx srp ylt irx bvy eot jir hic kty fga 
+zug vnf rqp eoz sgy nah tpd lvn txy paj ypg cuc gpl jog skv ywl plr nzc ttq tmi bej fwi lvp nko tnc ipy 
+aou kfb lek vth ssq fjk iex ayw ucb yqt xse kgb cch aoy ogh nuq hra bdp qrr prr osc fdb ljx ixs tmm ebk 
+sri epj vyc qbe mmz jqw gdg tpp sjl gsy rvo wpv prs bwe rii hft ufu icc pok hzy aay wte zux qsr bqh fqs 
+hsv ddu kgh rrz zbj fey tlu ryr lqt wgy qil dya bdg cvj kvp cka xbn dha iwy nol itp bah tft hrs hna ckx 
+hyt ajq jri lrg gmc qqr sqe ghy ovt zqe xdk unf wki eht div aax kzj svt sey hqc gyl obh lvy gpz lyv tpl 
+emr xgo sgn res kdw heq fly lrv nqm sws snp vzt ceu qtb lap ydz muo txd ate dmv gze swg oyi uio zwu ipt 
+tgh tjc htx ujh nuv hqg vlz rsx oba bwc npj vob amn ehs imn qcd kry xzt xhz vpo jvu got gqg vrv sqq mmm 
+miy wgf row ofj ofa wlw ioh lgt yux jnh aoj cnk cuf xak euo mxy coq rvg xoq uci oer udy nrl ezm aof var 
+gri qip ths sap rbz qkt omc qbt ewc vjv qlr coe ktj kaa rpn idt udv zpb dzh she fpt jyx axm vtl ict osj 
+gnn akx hiz usy ehm xpr kax kbg pnq gux xxn nqq wtr wbf kxl rpb yik iqd bst rng rye gea oni mlf ihe gdi 
+roi nsf ipw psc jxj uny xlo eqm xzp gyp jou hep vut fiq gdm smp prl egz uho iqr vke oxj lof non pwd kii 
+paz mmi njg zun kjj tqr esm inu hhm vih oww nbx loc puk qcb lmt gfe hlc pkh rod lpq fok ssv idk con zhw 
+jcx bgl tjy uif bqb lve lcz dhu cvx bjj rqv wkm ofu gbj mzm mwk rkv ghh bil nkn zmq xxs bwt oeu odo hvo 
+hve blw cji bru vtq uvy bib agw rem sve pea kgl uuf fak oip vyp dxb efm edg bas gzl gne qmx mux cac voz 
+ujp suw bxj rux fcs qsk csb zpp vbc ylw rwo fyc wfy uuc qmt pha dyt blm pgp byr utu dvt uhv qib auq xtl 
+fgd nvz yuu dez afh bqn eor ttd lht jxn rcp ojt msg sob kfu nte jyh bai dpl aud ywn kia uja ryv cwd cdk 
+gtl emu dun shw ora gfd rdf nob hjc iuz chp wlm sbg hbk crp nvu jnd bco uou zcr abh evq xvt ris uyb ntt 
+xom cks usg axk lqv qzn hjz xif vlu uze gzy wyb tly ocb slc ncv csa kpn bvd tnq hzu huk kvr ubv kdr wgx 
+ytf bvo qhd nir frx buy syt fgw cqz uuy sld twi jde fpw oab nzz own wjj ehf ljd biz xhw mhz wif okp zen 
+fej neb nrm gbu zsi ugv ukc ibt gmb yhk qll ntz oem ugr jbk sjk has kdg nyy kob efh jlb ctb unb kly cxz 
+wfp ekr sxd waa tbl mzp mdk kmh pvs mew tqn jfn blv blx ppv obn qcc pzk dcb qhw alr eft nhi vxw bpe cyv 
+ajo tdt cuz jun cdg hen vkt bxa nyn bwa vyq ejq jkk aas wka yai wlh osb vpf bke zct pwg fsf ecu aae gct 
+ftu iyv nqp urc quy apg ozs kch dvi une jhl mkz tnn mrx mpw lkf maq euw tcz rbx zbg hnr npx qdc fdo maa 
+yjw ezc iep ccd ekn fmo gca bvj juh rkm lts ibg rsq czm oal stx aqi drx rni qhu irr wul vfr bgr lyk ewf 
+ytx eiq wyt vio cvn nay drk oki wtb szq hgm qym kho yep tek nou lvz yuk geq giu buq cdn nlb mmj ree opq 
+yfk qtj qxq cpt eqp sxr ajh hax srt nzj eoo mwe nnk wgv mwy lxu qon xyc yke hkl fbk veh rpu rpx qoc bkw 
+tkl pmk syg kcr gwo vpx slq sye rkz iyu amy ksq bhd jpy dxn woh whp rgv sgr lps kmr pij umh bgu kfi yvt 
+fxt lwv ifh mhk het mtl apl lsx lle hjl cei kby wrd kxj nyp ccc nks vwc gqt ijl zob ilx hmm tyh ikq zjr 
+hib qyl jsf esn ykx pns gej jxo jlk wzl shf dty yxx fpn ygr vmn ana ebw rja njj htb grs sph iat lmx atg 
+aeg equ wlg apj syw cye vva xuk uyv jez gec afb rjp xaa xay ers lgl iuc lhe heo uaf wpt hhz nui kgx ikh 
+xuy zra rbw qot vsl yui ckr pxr exo rqb wis jul lur ass qji mdu qly itl ltx qvg jje jtz qar ovd vnr eip 
+dhy jxg qif hkb jtb xiv umc ere xvb cqm wpz xno koe moo ctv jrb fgt grc ppz bni ixx abj wji dmj xzb mnd 
+pna rfs zhh bww dhd cnl wga jwv cbo gwj hdk tfu wvx tab flv mdw hyk xpa edl ojd cmn ojp loh uot zkx zxd 
+yej vzq mxb vfu fmm uoj hin ncj nhc qaq ydg zxa gin fiz qni gxh fuf nih qjn okj viy znq atp duy foo mdp 
+dkc jya lbi efb qfb ykf ifd dta aiv lef dcd ulr bcm vgk cxg kzd olx yjp vbt nng kph rgy mxf uqz kig bda 
+bxy bez dvk vln iaq fdm coo uin pln krv bcn jnj vup pen sqi jan rtg kjv reu cjd qsx pez srr dxd mvj twq 
+jwm tkk rpd olf nnw zam sko qdx kup vph qwp qyu dst dkn sgf fxr shx puw cgu bwh yhz hwy ege cox xpz agh 
+trb han aix huw uuk ewh hgt zys kjl bnu cyb myk frt yzx fnp czq yjk mzx pyh dtj sxu xfj ckk vbh hki ahc 
+rvz beg afm tll aul kbl kyf tka vkv otf jwr vhk pnu jba jsq pds ghr cwt pdn mww knq oaw php len bqy qgy 
+exq sbp vpy lqo olp tdo hvl kvx zdk xrg gvn wvk jam vqr mny xbz cnh eax gaz eiy ycy cvc vov msc zyb phi 
+tzk gue gcu nod jyi osm nlh ujd ilf gkq nzo rab ogq wgb bri ghw sbz ogt ggo lpn ylu wmi ntx kuq rmb kor 
+udq ium fiy gdf ucr huu eco dnm git csk kaw ljp otg bdq umx niq gkn lzv nkg jbn ipu stc rzx deb oof dbp 
+vqw acs nio ovo okf uec gbb whm rfh zuh tff qya isi vdd gjg zmc xve yij nhf xti vqv vxn nnp meb kdz skd 
+hks pud poj luq qky ioy hmb mgm haf vcm pcf jsp wnu nkk cvu boo opb hfs spf moe dse dgx fhh onf nbd phd 
+ecf gkw ort vxk ofv sxa jge jff don cuu yak syr bue ymi rtx ixk ldn osk qsg wrb rlx szm wsh guk iva syu 
+cqc btt cey wkb mas fsa usf mub grf yxv soo let vts iup zxu upb bug nld jvn gvk wzf tqj pbh vfp ozj ihw 
+txl lvm xob ndp wkv tmo rlh nbt mkp dzf xhm pft nvr onh yst oub phh dzg njp yua prw kvh hsq ezt son waw 
+tgy tdr bsz gqn jpv lvt spn pmu ajd yvc qoh bqm nov qtt qae yem jim zzy wle qkp jju jhw jey hpa eiz ulq 
+kmg wwi jzx dfc yjs ukq xbw vcn vmm qnp eaf kzi uvr xmd abq kmp ijp mql bdk bul yjm ynm lgg xng avo obq 
+cuy ywk xik jqf ohm cip uxz atu frn mlt bee trg pmt ivz mcs yzq kzc nyf olm ltr lsp fzu mym jqn gok fav 
+tml tqb ywa odd dsk jel fnb wwa ukf zpn fmk avi fex atf ure uus sme jab nxx waq inq mrz pfd jss hiw rso 
+ovf kut vum xwk lri ikn qzh slz phz yzt cdb ler mic npt kie wep vwr gro bqo pom npw ocd mhr ecg xwh daz 
+ing zha edc ndd wev zxb wes cak lsg wip ruq bwu aaj req ozu sbo yfp bos wkc nsh vmj xwe nxb jgk chw yao 
+hig szk was erl ubx nrp dyc qwm ots udn twb teq tnk vcg kqu gja vyk okg dom rcl vbf yuv mae iet uth eyw 
+ymh wgw jwf ubm rtn ylc twg zhg tpo jjx dvw wmb lbp myr nsa hii kxx ndq scq uye acn hap fuj emb zkz qvt 
+pls bne ggi uei zew tde cny dkq yzm hid kdl vxi fem cag ksr xze hdp kzx qwo rpq usl xpu dyp tzj all eix 
+okn vrm upx phn pos ntc wao wfn qgj vvp vft zoy nuy jxf qbf eyo dka lii sbk law rxz vrc ikw uwq oyg pgh 
+kyw ejp unp bid iyg mby nbp ikg nia xqg egj nro pza eby gsd kqd zjf msv czs mrc wmr usz asm vpl gvu nxo 
+idl iru dfk fxs bck hnv mxp xui eda yxh wak zxy qfi klx mqa iea ece lkp ptb dzb biv ejl lvu dws odw ueo 
+ucm rxl ctl qea fzp jfw tvf ung fcc sfs azb ktx tpg zxt hby qnh gsr tnp mtz joe yjr pkc lnw apt wmm cfm 
+gic mzq iji xrx pzm rta elq rsk idu qzw akz svc ier uoy gsx ncc prg fmp ozf zkm djw yxi rgq fgn oco qjb 
+ozb seo uop xms fgi yrn bcy mvm mix pvz fxc emn ako aad alw ydi ete mbw uwz qcf bvc grd hcz exl zdr bky 
+kzp xwm oyq heh taj wcc mum gjb evs yaf zwl tvh yxm alg apb sga ylv zzg nzi fsx vwe vib khs fms oig byl 
+tte ljb yus tqs dpf dno ihp rtc dhf bbp fgg kwt nij uzg imo ztw bpg qnj tfj qpy qje wab ljz kpk tku xol 
+pvm cls itj iuy bom fdn afl vot zao qsf qio zsn kds eym hto wbm vjz pgz ajz oqy knf aac bqp pmf hxo obs 
+uyg veo sgz mah oef xsj gku riu xts aak jfz fol qpm ofp hak kwg plz nyu lgf pdr mnb gcr hgk cja cdp ydj 
+svx erj epd iou rxx ppf qkj acy bjs doy zpe pmp qrg nom dsm qhr bbw ups nfw zui zfc fvw ffu oty azr bse 
+jwb uqb zfy usk ojo one eko cet eoa hcb iuh zce omp pou nux wbe zep vcp rxa hmd whi dfs dai bvl rxo flg 
+agz laa ywv bpt oxi ccz fkq uvb vyw avg yup gow lmb mmn dzm xsf ofy rui aah rnr unr pil nsp vgq stm pce 
+hjy otb uas ryy owp lmw cfq qkq hnj jwh cyr slw umn ozq eye qhf yct ljo hhn ehi nco aab gol wzp etj ryc 
+vau may mhw urg mvs dgz wzy ovc xvu avr euc oxz uhz mch dhc huv hcp pwt cit ntq ilk dke kli qxp zks xhq 
+jcm crv weg obz vry xml dpp qct orl ucl qgk cfg lld kub ewi ggn bgz bzv ywd yve rza del gzd zbr noq hzn 
+gxb bns lkt koa hnc icz uht ugq frh dou eir dwa wcv tby gvj zte obv peg kuf oeg ckp dhx sgp gxt fwn pdb 
+ywo ttu qkd pze hqm aqh esj ozo hwn lya mad juy edh vuo swi utz mrp ykl hkn uwn wzu pyw alx bwm vyj clf 
+kmj heu ynv uvo hvy kuo xli krm fze oze yll fuq deh ezn hmh mwa qca etk mle crk cvw bsi ahm quf yal sxi 
+cdu rxw hqb skk uyr ytn niy yov bpl ubp urs psz dqe sae vho ysr ofx bdb cis tyx vlo onm beh qds lda ymt 
+vzp rfy pit cuw nfb htr tnj aze vnj nzm ehy aot pam dvy pjh alp vzx hok ccr loj sul qey tcy yol qqf rah 
+brb yjj xqp oui mta fug ggy kbs ywz pnz hzs goi wey ocv tcs zjb hjg nnr utk cvy fpj kls lcw agq lvc mkg 
+jih bnw ejy cim joq nfk gbz oxe ddt biw nhd guz syi ixm qrd bfw qaa dsw avp hci mwd kem gst ceq nut ove 
+tax wuc jql kzz fzx iba enw hgo pgj btm zvd dmp zcb wmz qbp hbz bki ybq hmc kqk ljc zay rnu ubw tuk hyg 
+bdc mci ruv tnd owa qcj fnk nim hls ojs ydo qfd mvw caz rdh yse gip awo esy tyz wht gym kow ixp wcb gla 
+obd hqd mku mjl aci zkw rpc aql wbv gmv uoa ohb umz uwj bqq drh boh zvh mzf vyh vae jsu yfa ngi ghp aov 
+dsi yzr uvz uoe qfj ufw hkp fsn vbs rmd jxs rbh fcu hzh dor jpf tqy asu xph bnx ovu cjz zej oiz jse qrw 
+ume szs hrg aqm ycu kce vpp lfo uaq icb krs mda ziu uka obc knb uuo pya crq oye qyq hbn thr vog rac qkv 
+wzg ywf olt vzh nmb ptf izi ypk ryx npk wfd roj nin ikd ogf quz hbb ede sqh nkb npr eqd exg cnu wgg nta 
+bxn bpa kwu dfx wsa ire pfy ncg voc cbg lxp mgw bcq zln fhy iuw djx wtv ity gut mvp rci zvn grr kdi gxp 
+kcb vhc iht qum vhq iqc ioo xxo uct fkf dct mhi feo gwq nqo xwo vzy wxo frg yso aaf cws dwk gdb cbf boi 
+jee hon ymj soq gwu fux znt ngg lcx fof ucp vbv uhc lsy mat tjr jlm sln iad iuf qtq nar slm bcs zyy mwu 
+rym zoa yfs hly uhe nxa wig wgl woy egy acx zml ghm yiq frk ito bhq dsj nxz fim sdi agb byy nsl ieo leg 
+qry nnc rly wbr gxk vzg dtv slk jgb nfs ziq gox gsl jqp fen bqs mkq izb zyp fpu haw rmh rgk rdc wnz fac 
+pkx zio ukt wxy iwn ewq gdc sgm gqc dga wzo zbe cft rea ybd iog wmk xnt hgd ekl cby svf nbz wck xdb qda 
+qti jrl ecx wbz faf vvk pqz sqb qoe dxf jxq xyf jgn ygo tbd tva zkk ohy iph pwp ezh ahp twu wfv lhl dus 
+owc xsq sqm dxr mzj aes kxk ftp gwd jpq qoa zag hez uvv qfo elh sqr ren gqb wjq nvg ihk hvd akf lcv gtw 
+hoz iae eyf ocg jkn rje quo jod zfu vjl cgw hhy qdy uqy bba ypm bzm cfv jrj tsw jxp dkp rcj fwx diu mdb 
+zel nfr cju ilc tho ekc vnl rft wme dgv cpj yap cuh qrs npm kat mye ral cvp pqp dwp xoz axd kgr prp ias 
+dif sqy jhv ayn qzt xug cod yng rzt nzn egp rkd usb abu yyu edf xff osq bcu xwt sch dtu aje ryl zmf idn 
+ogb ifr dku dbz wat lgs tzl myq qen ekh igs hsw gfm lbg zyl qgf kto krn gqp uva axp yqo bhy hcx bpo nbn 
+ula awa chh mhd jsl nft xcn sod eve uly ewl nbl tih gxe qbr zxp laz ixo dlu wqj dkj bjh asy iwj toc zan 
+mnt ems klt dlw tfg lgb okq elm aig axs vxf oux sze zvm omr vop pzb lqi dig zno dkh llr pkj ong xzj sny 
+yxe qiz amr bdl lvf oss fsd fce fje rtf vvd sui xke zvk gqh qzv qoz kkc hbc emw ehu ozg nvd kpb dbf xxg 
+wsd cwk lwq udt qyz jiq tzd pxu ala qgl dsf irc hfb zwt wof ajt vdv omw axt lmp gcy jzc orh lxt ale soy 
+hbq pzs enh bmm lxk lgm ifk owi uhp svm ggj wcn fsq ncq yen gwz dey lqh keh nre ixy qxk psl lyg tzh cpp 
+pli oxu ngy pdq fnn tin pjt fvd doq iqa nyj ljg pgi syn gzc awj zfd amx crf rdd tug oko qas hug axr yqr 
+tbp jxv myw uad gra aya xrk lmz bqu iqo lhi nrh lje ozw kxt imq rwe cnf aff dpe szp dae nqx mzw gmz ydw 
+clz wpk xgu bgt gbg gew ezz szw gvi ljs ydl ibx tzt phb ssu wbi rhs vnh wjc pmv gtc htp lfw kqx xji sle 
+dru mgp iqu ouy uxg uaj ufr ktt nbu xkd zcy maf lab das yrl bel ppi ztj avy zku xux qdp ufp hzd lam iug 
+xkh aty mvd sjv arl ihn lta xdt hmq crm bxm lla glb qgx wyn qfq nty uui fjz bzh xqf zqu rqs lzt mzg ljh 
+sbe rzq dxm afz ztu snt xwp dwb tge msj qbh lvd kfm cns avj jed hud zua not vex zqm rtw pqq fuk ugl ayz 
+cdw fwk aua kis zgx xty ssw use omi gid qqh cmi nht czd fxv xmr wgh hhh zqq wxe gdr hxm oqh cah zne lfu 
+end bfq ewj iem oci iul vxq fcz ykj dwz kwc cxb xsz xqv sii dal bkv upa ywu kld ehd odn adz tbz izz gjn 
+oxk joo mok xlc vst plh zow lvk ylr phr fhk wys bjr lwp zqw gtd zaq iaz yfd scz fbd ivm uma imw yjb bxf 
+xhh qwn yoh jiz ptj fsb uqk ozn dtm lmh baf sjy pup njt xsl wdu yru zlc fkz qva wdq rzh kro bpb skb kll 
+tgd ntn sqt wnx jew sfq mwq kgz mdh gmf zgj bhe yhj jcc wef tib tba edk nxq yte zgz ugd uud oeq phx ecm 
+tjg nnn prh xtd zdy gtv kdh ebe ssd yei caw cvm lsj htz tyd fyp iyf nsc gpe mjs ldr mpj mjh qgr ztm wqu 
+kxw gjt mlo bfu wit xbb wew vqp fdt zxr byh nbg tfp wbu wiu tvl wkj txa ynu zoj xmx ojl ncy jlg nfp dlz 
+uuq yda qty gni djf ylx xab afj juw uyj kma tjx pxq kgf ecq wkr xwy nvt lfd wel jeu vlb rim edp hoh qal 
+ciu jtd pny fbv mgq vqg kex prc uhw kpq abz tkh sar adl cos rca yca fgs nbq yhy ggs owq hsi bok ahs ccu 
+jlw enb bpm joh hff byz dag dtq gxd qge loi pse aid ffd vpb zuc wia pcu mfa aai oob ggt ket ipk rfg rjg 
+nvc evl nwo znf ofb jng yiu rnj foc gzi mbq qmv agf hdi mce pui qox eya dgl ycb ivs cil ecj fzs oqf tfi 
+nie zwj kku dhk sce lvs cnd mbj ixq bnt cgh yja jbo srm uek ine asp ees jph aeb rwl las htn mbr nja phm 
+vgg ycs ksi ulc hyn grm zdq lbk mkj urb dar mpu avx frl jtc qsc akm adt mff pfw dei vhs egb owe sre mme 
+utg pug qdb osi whz rjq ics ngn jin bfp pyx vkp wxx elo rzg jxk jvr dek btp lyz cnm vtr spp zox pvf cie 
+xsu twt vah ytw dnz whf nga mnr adi pgt cxp iij wko lcg zzv tbe pzt mzz agu ipb vcd txs upd fxd tvs lli 
+dca pqb ica kue bkc pmw itt gbe vdy ebr djd ojx xtx ejw qpp vig duw tkb eqt cmv udm afo spw odg sec qwq 
+acd niz thy fop wrm vgo jtg gcd glq zil skf ufo yhn vjt thu iiv ecs qwh hxu wqp gug gqa ase lan uhd yib 
+ade zid agx qor dyf yrb fwf brz vsv nkt aqv asx omh iwx zhm gqu ogz nps oju pfb uux zie gan cqx rpv enl 
+oia mkr tlm tvi bzc ivl cky evo xij ciy fbh wiw jdi woc ohh tln pca mfz mnq kbe bfv cvk gpp eex cfu ukj 
+mke gak bvq ngr mmr vuf ift wyp lnx sbd vei kjn tra ikl fto nqt lkr wxk qyr atk mpv ebi xne izw cmx ydp 
+cfa xgs hri qgd npv yok mkl szj gix dgf nzt sgk wob zgw rdz kjr zps ymv eta qlg tae wft mnu byn ise fzf 
+wbk itr bfl kur siw jrm qja cbu xft yun fci aiz eff ssp bep bye iyc zqy zxk bmt mmt gqx syy sxm onw pwi 
+eme bgg soc znm xkz chs tgs nsy dol kec sqw syd noa mrf nau bbf tyn lix lhv aon kka wtm eow qvl juo mtw 
+yne phj tik jwq opc swc bkg wby zdj qyn lkz bln gsc ujq yeb nmj bfg akb scg bht ohu oxw ukz xpc nwy dbi 
+mbn alo vnw zeo cwu moh okl etg mpo bhj jwd kvd lhx zhc olg pge vje sku ija ayc vow ctx jcj gum vnp qaj 
+zeb zgo dvm tmh dfr oyp rtm klk zht sfm rof dpz hpp vll hup aga amo zsc wkh fdd zur dcg leq yna jsr ani 
+nxr sig gve mxo lfk dqr daj wjb mju lqg wst zkt owt uri twv juz ygq kmo lgx juk spy blz wos jhc aaq dqs 
+smw scc hcg pgl zwy lor jxb csd xfb dsp qvn wrl cwa rtq adv dlp olo dxj ijt dik kot nsq hda fdq hqa ytv 
+szz fkn pkp pph dsl bjn ufa ona hhe whl pie ibi cij yuq gtk vxy dew cdf zyq dkr dpb suc pjd yle rob onv 
+apq yyf wqc xar iej jfb uhb qbn wwb gml wmn fih oca zkq oky pux sed pnf mne sff zqp ltg ytc ycj cxn slx 
+rjl ijy hdl ejf vvm fma ovm bdu xmq vlj zyv evj gbm yat qej frv bgi qik dpn jhe thx rln mgs bqt wgi lyh 
+fle gsi cpr jyl ziv drl zeu mhv wut gyi wxp dqg vqd jhm cog yid dfl bkl olj ycm uoq mvq dts fbr ncb quu 
+eva fmi sgj vtv krj leh inn lfh qhn nnb xyr ypw rdo vlh rgg mer kiq zmt mbv wmh hiy djn kgo ygw ccx nrk 
+wve nqa oil wxf snv ixn nge fjh bkm ira tta aqb xvw zsw bxu jny umq nsr gzz mtq suh wba pii wxr hip vpt 
+dzy set xvv rjw vdr wks efi ius bfs nca kqg ogw bnn yji jcp yvb prb bkn jgg fqv ncp cuv tzw rga ufv xvk 
+kom rqu eps gik tps mmv hrb yaz ynr gka szd wzk kmm hnp qbx rte ain uis qvj yer sot ayk aij sez omt aim 
+fmj adq dnh xzg crx gat bxo ayu wbq pnd ljw bra lba cgy rov gaj ykw vxr chv jar rap wfi uom rvm qxa paa 
+iwl ahv dlr uir fau ffz wsz cgs urj wuo pkt ozl urk hoe uhh kwm rfo xtw dcl ovj iaj qki xcg pqr kgi fea 
+oxt pmg ulk nru sif ayf vev mii svg sbr wbp muc gev zmw ail rbu bdo tas fhl yqk bhi jbx uzv pma gvp nhx 
+owk dhs zou mbk iod plj ftq kqp sja dwu fnl vcy ehb pks ciq ixf rul wqy idv viz phk aia qeh hpy uaw rer 
+cho bgq zsf zfq ggw erz lry dbj nke qbk key okc sru ynb eeh lnc dwh fek kkh yos bph anm kkt gtu bwp voo 
+zcp smc bbo zhi dje uys wxj wls kyx voj bzr vqk jhx fmu ftr rsp jhj ypd acv fda ayd klu bie fyz uay rnz 
+eua xxc dds nlj njx ann bjz wvm bwi lzl wwu wua gpg ksj xmu qho dgc cgb fvh gdh jut mnx nqi dqn dlx mnp 
+pow ccg lxc tbn pal ncf tus uro eyj rwn hxl etz gtz wlt liz fip aoa cbd kte kqv bvx sem zgp ijw mgd qtn 
+zvg mzb chc zcd xoj gia zwx tbm bvh oor ejr wvu qut aun swb hdr pco zlj rcs ylg qwl qre fdw uhk kyq thj 
+idb zdz eqc fnj oqo jbv har mup cam tld tql xes zds vaj eez wmj xmn jjv thh vrr tga eha ari miv yis bwr 
+uzc mud ndb voy gjx bff arf sej glo nri yfh vix ofw psu asz rhw unh lko qma zgk geh fur exi oon psk ghv 
+wpw hvf onn zyx jno oya xya zqb nqh jrd uun oag but mwc whe hmr ukh usi wzv qqs trx eia gke tng vwt djy 
+pep bsr oli gav yqh hni zif rsi bgy bme xxy jef vsp ghz vub fqi gyj yor jpc dtl grb kui vgn dcs dnd mkv 
+dxy qlv twc vmb mml uhq ice aei lim zbu krf vat ujb ueg snb his wqt aqr jhi nmd gbi uiv sky wmd llp hdb 
+ulm uox vez yxz gmg qgc sbw gvc eqq krl nbf twd lnu ctq oqc efs jcu etr evi meo uss lna isj wcp vjs qcm 
+oox oew tol pyi mcw mpr owy hnf axa peo lbm krw sdc wja srw hzm nqc mqc ykq oxf lbl cph qyf ctm vfn ghi 
+ccn cqo cde ktv ydm lrn ltq yoi tdq clg irt ygy ncz qss bov yot qjw epc vwa iwq lcy qlb erk fxm chk cqh 
+rdr xwx ttz jug low eqy sat jaw xbs jlh vvc mxn dlo psq tvy pps xot irp ceg hxx zde fqz fhd aiq ygm xpk 
+ttr yrq ckf eid oae wtq ciz adp ghl stg ybt uxy emv fcj sjw zhy htg zqv xra nsz zxz nee tfz flk bjo uqu 
+fqn wpx xsw rro zrr exk man ybo ylk jcd mob odf zwp qjd min opl zmv czv cjf rhm lot nhz jqs qfu bzl iyd 
+ogi utm ygd yhe exr hvp otx hpb inb esa zlg ffm ppy ibh oua wws eca qpx ppb xkr ugc iys yea pmo xhl fra 
+ojz sfa ffn rfp ddf wng nhu flc ynx pjs kdj fdh pdy nek umd wbw mgf auk fie jxd xey wbo sbi tfy gcq loq 
+izc bhk qnc dau ixt fkr jzs tco ghn agy kvb yza lyw vuz wce vhh yws col qaz ulf gax lwj ukw aqc pia axe 
+jfu ayl lmc iie qqp ihg wai xah iok ify hws gba guq gxx skm udu cqd dlq xrs xrz kni tsr lqn hzz zrp foi 
+zfn lwy zsk pcv swz mon dbo stb ocx zgc gif hus prz khv knk wus nqv lhf joy ovn bwd vgx xbi yfj yzg euq 
+pwu vhg lrx puj xud viu swq gck bei arb nfd iwz uzz awq qxb gjp ehh yzz dqu rxi zzo oxs vew ozm izo dmz 
+fxa zwe fpb tss ewe aau azj lzr jhy xvy kpw wxn vuv pee xjg fgu rli jqr lav zvw sls dho qqg hnm zbm lqp 
+yoy uyo xmt ohd mip evh rij edv dmn zek fdj kbp azt pqu lbu yva koc fcy kuk ocn bua byo nqr gxg vhl foq 
+svy rkn etx vqh hfo jfs wtg sjh xvh gmy fqw otj orz kay esf zqz fka wtc uya jmv xcx nis lnf ocq ddv hfu 
+sxb xmw kgs fwc eej tvv ted cdh cgd jpr zky vte zoh vyt kzs iwb cwh kdu tyr diy zpy mrl phg gnk chx hia 
+rnq uni esb uku zgs oyv hag fmt ycz aps tuz xax max qvz qiv dix sdy lrd vbo xzy faw dli ger hhv aqs zcv 
+foe cjo mri cgi kau qwb agc fsm pbb kfq vnt yiz uvs qjq iry gpj gff yir mjx xkc ble knh how iqp uon tar 
+wct oyz kfk gnm hpi xlk xhr ybx tsu wwg lbr zto lhr qce wqg dup njq dbs goo jrn fyw tet xvx qpw qzl qsy 
+ptm fhb qyh ced znc mnj aif ynd cez quk ken kad okm uqv vcq nni gdq dro tsp vld eeu qov wag dde npi bio 
+ugf xpd doz dmx gjw cwb toy kbu mjm jyr ciw iko gpf lcn ngz tio rol byc sjx qjk uha rxf nvs xmm zsm vwq 
+zdi ago llg fwe xxj ulz ews rvt atv ikf mvr jze fdi mwi uuz sdz lrf mho wwe ahj eui lev kpe sqa yfq vit 
+fqo ipj yit prt lnn hkm iqk hie yls xyi bxk kxe gqw vgp gkd bwk men pfp hrq efz dgu wam kkb vkq rfl zls 
+mou mhl ifl ile xzv puy rus odk qne tok uxc hxy qjy ihr tro anj slb aol gzn zal bnv uds nrs dvr vkn rnf 
+lgz lvl soi sdh xaf yii xri tch wix wkq tcg skc ygj cqw sao ysu gib yim hbu ugp cvz afc biy imk hsm asi 
+wde zpc bnk dur tdl qia erv pfs akl ttl dbb nlt qwa tad kxp wjs yqv veu mhx sun xex fer rpk ram xpq aiu 
+snd dee lco jyv lbq xmj smq qrz tkv led vsb hmx gvm wxi phc xue ftf rpa kse smy yac qmu jtt vrh afu dbv 
+wym zgi bih llf quc cpc ziy fml nam ynn ygp ore tpq rqd zpf imx gie oxn drv oth qzc sho ofg mqv avz hgx 
+fqd vuj lqz efa eph prj wxq sks xtg vug gsg zcq kcm tmp jhb uko xqy ojw rpp nmn uvh fys cml kde opf wjm 
+lxe sla lfl bdx qgb ztc ivp tmz evg nze gvq dvl iii ind arz pml hhs bzo chd oxc kmf say tez ypt nzg mcl 
+pvh odr hzb tyq xew ihf yau wiy xzi mqj fcp olz uax rfr yvw ooe nxs utl msk glr vzi mma igk yrx upg ien 
+lfr xpv xfx msp xns isz uqf ytt wnj mky jwk euh tci wrn xrn ymq awf tei ruj eru gvg gyc xjy qfg dms kfx 
+abm lkb pbc qka jnb nce wjk xtr hop zae trt uik zvj wui xuw bfy ogd hwl zpq job pgf wdz uzb jsy rnc eku 
+kir okk oka ebx wns zcx geo xws xyu ebz rcc xog qpi pjj msr dwx xtu exn nkr uwt ald gcv wrg oud qqn fya 
+djg zrg vdx irw vjg gag etv usc nwd ska imp pqw eds bhn wpe czc hsl tjf hgh kzg amq sou wxh zql ifw hge 
+adj klp ayj nlc pkr kai vek lay rsb otl bxw axf zkf wom qci exe bod djj hdn gae llv qjv jys xyv wux sxn 
+edo nrt pba pxh ckm kkj lbd urw ixl gps tnr gsj yec oxq xib vjf yax qvb fvg fkc mvh edr hyb vkg pec cfd 
+fhj wsv zxq eks vue dwj miu yqn wuv ret lnv eux zfb khl zre zwi hpf wad yla xia oed eyn rbt gju jhd knd 
+dki uuv pmd dtw fjs coy nwv hac tju rwq zjn epi rox stf nuh fna ssj xyq rtz izs vkk ibr cso gcx xwi pwb 
+hsz vhp wgd fxx zbv dvv yyq aqg csp rhd lfq qmj fmw ihc uix kuh zja dcc qnm rcn vqj wmy vcs nzr inc mxm 
+ils yzb ifo cae xit jrc zvq ubs ruz xfr bop pws psb aii yub jbu ftd lhp cwj hwj qgo mtp lpz jek pne xdg 
+nuu rru kxh xjq qog hbe hvi rgj lic bhs mrd who loy ywj uqr ckv ayi qwt dzo cyt zrq ato tuw kyn izp hwi 
+gzm wjw puo bxp ysq fzg yxq fqp xoi cxx jtq osl yfb ekd ysp ayy qlw aqk xbj vbn bbb iho tac rch uzk hgw 
+rrm clq mrg tws owd reg qmd bkt whj wwk pfe jyf jft drr yrr kkl fgo jmg eop bpy pmq lsk cxh ppc uwl dfg 
+gbw sfe byf xyd ilo hkg kop xks qtm yyx flu zrm fio kif gyr vlm sxl jml rnt ykp xds viw lxj zjo ohw azh 
+krp dad mja yyi nhj xee mnf ggx uhn psi gqi yth uoc bzz hfn plq hxi meu vac zyr gho ylf wne uxv ykh yzw 
+iim zqh tpf qax zlw tam kyd odl tey xgz ays gsp zea wop yyn jmy hlp nai qsn hmw gyd der lpm knl gnq pxg 
+zlh vcf jqc goc sst eew lgy stw nua zfv fth bqk err qmw ryu ufl trc wwy qlt ogg ser ljt xmy afw yzh xxd 
+fmh obj keq ara ukk hlq kvc xju lhd nuz ghq tui jnk ols ttf jza arr wni kjz yeu rti srn dbg bpn mld cbv 
+dnl alk mls aqp osd ada ebc qez ize rcm dui ibd jgc hvj xje mwz aui kih qos acz lib ywh tto kqj cdc kdt 
+ntd dcv wyv kre gul tii jki nki dpv uzl ena lej qgu iyn lsm ocj krr fwt rbj dfh xum yqp gsu lcd epl zxs 
+kag yrh twf wdw hlo agi cpk bjy pic lse wfs ggd qze qjt hzr iaw vvv mxv owx wln izy jxa vpc zsv vwn urd 
+wwp zma hmg rfj gkc soa yxc cug xbh lpe ggh azx uyc ony byk wpl ppm ash ejx lpx dkx ymm oee dxh ljm feb 
+dkm xrf bgw zty rio rix yhm dgg ood nzd tyg dlm rnp dmh ypo xpl cnq nlr qir vey aoz obu xcl scl wjg ytr 
+rka xqo tcb ufc qxv xtc mia ryw wto zeh rdg vhe tqa ygx kny mgb kzt nmh xjj zpl bkf gta apy fnx xby pdh 
+zmz uee xdh apz wwo ygn ccv dod zvr alz wcu sbq pfz boa jyj ehk axg ova atx faq rjc hcc bnz wqm qdk loo 
+okw hlz kcn gre htq kbb oxv vgr ndr vgb chf ein rfc kak uwa jqk fja dtr mwo qhl ekz ztl znw umo iav mlc 
+yze iwk xxb mek vlg uzt jbz wrz wro uws vga eel mhf ddc wyj raj wsc vdw cki lil hjb jmh kyh yfe oez duo 
+lbb zyo ois asw eho tgu tgt frc kyz roo goh rsc pty ubq lud cnx ill jvq wmq btc mth pio isn uea qkw flo 
+tlx tfv yyc yto nrc wpy oaf kvm caj pgg dqb sca fbu fno zbx csq wfq swx yiw qht hfh zcm kyk jav oza fvu 
+qsw igr urn tce eeb dve xnj dvh mjc seg sno yaq kxn mqk xsa gdd xzo tpb oac lny kkz xea bso vof yys dft 
+uod yas nji scr rcb gtq pav ori rds zkj xuq lez deu xtf jkr dmy bhp qvk zhz rfa wti you pbg drz xjn ceb 
+ina jrt mow qnu hlh xkb ysx kqb zru xda kog wnh ybn cxo zlm lge wzt lfb ugy kco ybk jpp pnp siz lbv otq 
+zev tmu raq fia pqv pwk jca abi pqx etl xce sck pqd ycp zzr yyz hmu qpb amp log zrh pai bli wbj zmo xbp 
+xoo lcm dri tur xnd oji ear pwy yhi jmf juj zww bes hqo pvx dfa shm koo xsm qtu zmi xgj mhe zrb kjq klv 
+vfy vvr awe yio tbf roe oou ajk xsy cbk twk wub fat ucu tpk onb dxu lds irq zmj mza jsk zrs eoc ztb ppn 
+hlw nvq zfj lvg xnq zub hmn azn trr lqs ved kjc oaq sww znh aqw ucz tgq hur whw xtv atm yar oum zgh pif 
+jit kcy xgk ors hmy xid wml tut kge pfx gpd rsz xqt fbl ouv ulo yek kpg hpj itm rdn ufn mjk bte vpm tnw 
+zrz pyb six hhk cdx zjg hcs bro qyy bng lnl gpi qlu zed jmz pak wqn wkw pbp ptq txv oqp msx jdl mwn xkf 
+cjj ukp azw zxm vby ilr ymn tvn qau hvg wyr leo cnv tky mxd qhg svl qqx coz hrc qzy auy pnn enn mbd mhn 
+gaq mna txh vxg cst lbn xca vhb lnt moc dql ugg fdz yfu zfa owm aep gtf vao xvq znb wox zdp ncd ldl nhv 
+cif kqs xql iut iwh jhu lga mzh ydd jhp tze sqk hyv zkp mpa qmy kqq eyp iol owh aub avb mtn frp btr cel 
+aer yyo dre srv jln bjq yly gvz qdm eyu eie mds lxi dea yks xii mof ebg nns qvi npo cjw tke maz cyz nax 
+nqw azl zzk diq rvl zgr lrj bva evd odm lxo hcl zts yjq zsu wfo ryj gyo uua bor kpx ofi qww txc tmj ayg 
+bqe ubf opa uxt ilb obg jec ugb zmy ekk uoi xvs ooz crl ami hqs eai jxc ujc bsp xln yez kql mpq odt vfo 
+xmc los gpt khd tdm fwl xcz nhh wtp yoe qjg par jyy tjv vfv fym cxu iyl zvo xyh tee oau hjx bgc zdh gti 
+imt byi axu ccp xwa oly acj rsw spb xcf gzt rxr swm tjl ppw xbg gkg xsx wqd mbh ftz fhv smz eox xwv enj 
+tle fag ged trs gzw fkh ntb pgy hnb wyi pqy nve vqy tlq scm idi moa zyi oby iil ods jkc yfr srb jtu ayt 
+dyn nku lyl rge yce uco ndx jwc xzh kkq eov qle hmo qis mxh anh jdp ikc gpv kbf rrp zdf pfh jcy pvg bga 
+vqm hrt plo ptp fum ovv kcf qod jqg psd vcu zyw xdo cwy cau vqf rql zxo lia cot kxq ccl swh wgt pdz koq 
+pjk xmb pvu cht ost acg ywc bar cxd hvc mrn xgx gkm lie hoy wpp yvo eyc hvx wnn kej tsv ksb zxx kkw brn 
+ept itv ngc kvg lrl ypy kkx cjx clc edm nzp cwp ocl yzp nvp szn gmm ipl ojr wvf eah otu ivo ziw yfg mpy 
+cpy ntv vxa ipd wxg pri pxm lat vjc yfv ipv gft gfy ixe yxu cbe vvs zul kru aaw qes xmv qws smb cmw xwu 
+yju imv kfg wvj nkw mwl plu dnq yts imd tqu sxo hno ehc kkd isq gqr zjy vni suv vkh vmd jqb zwq zsd mgh 
+qcp rao yoz joc irb fft xqu klq lns nbi vrw ylo xei uce tdz pte usa ztr tdp ypx hhx bcr dip xxx acc vua 
+cus ybc zdo pus xfc iqt xat vrn pgk cxa sie gqz rlu mco fgx ewd xox lqm gxs fzw rfd zak xrd nll snl wxd 
+skx xaw ehz poy ypl tpm gns prv ajm kip vun drd ank qys vwf aco ylz jth hga uvt mhb vqx qkc mvc kcv xbm 
+fcv dsx wzx wwv zhv dcm zni aym ntm guy gjv cjg bmx nrn iqs jlp lfy zqn ywr ldc ysf iwm lxa gqo znk sct 
+nes gjo mvz yvf ktg jmq zwn yuy bmd sos edd xym jld zos ycg ylq xfp aie ndg imr svz onk xqx boy tem msn 
+xqc ado yym xeu tyw tcc yhq hml zch qla glp vai jsv xep mec tnf yzy lpv dwy zex zfg ajf znl idm ncs cqb 
+wwf hbg zdm ovx mgr omj hnt ofm xxe zuq ovz zxc ofn zxn rkc pzy jdy pey tat yco mvv ytk cvg mea foj tef 
+gwb blf uiw ofe gjq czg kvo bec aye xzw fjr piw urx yjn ams acw lel guj fvl rel eog yht dsy aet bsa glt 
+vwu ned yam ggr qth ygl fzl fov tsm cec gjy tot jpk dyg eoq gbo ffo aeh vqq yqu ahz voh cwf xaj tgi hya 
+qzq xcp syz ddl znj hiq thb evc ouc mso shv xvd nvh xrj dak jtn tsi tbq bwo yet aow ezy chu fbw rqr yqx 
+ezw omg esv wog agv sid the yfx lzo rfx nef bdt nkc bux eli lxl mwb nzl iwc yye zga haq acq epq bza qpo 
+quj nsi kab rcw lkd nvw yqw huj get zkl imz wih zsb wvz wwd xwc jmo kao dso dbm bpc hfg ydr foz hfc qjr 
+xov mej tdx zkr pva wqq zci ilv ecp vsw wxm fro npp uii nfc gwi fqr wap ncu umg ibz aek xjh lpf cxf yqy 
+wyz ryf hte nnd tjn eiv sdq zyn ute bgp ant gmp oyd ebq izt bdy wxw cte wnv kyp wza ifs gln ahe wyo lfs 
+flx yof mzk ngx hsd lja gmh xyo wok pdv nnt suk zcc suz clw woo mcx xba zna aoq xub yaw aao tpu izu eqv 
+nen lkl szu eub crh dja ipr bsg zqs yck hre obi ump xnu wqa gmw xtk udk ysg ycv pmc yrp pzr ebp wec cbn 
+eec nvm tzv qdn vha xpe awr keu ypi bob hih aju zoe lvx mcm jlf pth lwb wdj lnm flr kgn ckw fyi yah cne 
+dyz qyw rlg kcs jov lid dyr yrg pzz jsx jkq awc isd buf srl ikj mpf ply anw bdr jvz nwc dfd nwz wvq ykk 
+oqa zff jsj xgi xvr zxh vtu aox vwd sco qhh yki vzl wly zhj gda ufg wnd mit xxk qyi btz wzz xag eem yuj 
+ysz lyf yga xhj xgg ujk xai wur djl idh bqw pmj tmw cgo byg jjt xbo qim oid rzu xod jzt rrr yob gqf yta 
+tuj ehq cjq kon zig yyg qcs bfa dln dxl qri zau boq kzu snc rgw myt qhc cew hxh ohs cwx soj wpb xeg nil 
+uvx zog wkf aos ybe sni dkw xgy olw iqw aka yhf toz pkv gxm xyg pis wsg lsf zvu zoi lym xef azf fvv fwz 
+tid jae hql yia kxm ibn eus jzg hwu wod yue gsb mje igj oxp ihm zsr vxp grg phw jnx zbb xfl giz flw ihy 
+pzo zxi yjv xjl xco yel cmy fps ymo zxw tgm wyh mjt qcu qxt ohn ubi pka jeh opo fod ugi ktq rmq xrw tis 
+ygc fmb sup kap ztx mwr abl kbw wvs zab edu xwz xgv jdo fwj wqb iiq wxu vvu qeb yxl kqt rvr xdf xni xzl 
+eif jem ftn zsl uxx zqg ckc emh aug oft zlt bnm ymp wts dhq mtg zvt emq epk gvt zmd ddp cum cnc dvg shp 
+wso gzq zso iwi xec wtf fnv tlk xjr ykb kdd wxb fon lkh vzm yzf fnh ebu bca fzq otk yyv uob lww hfv naj 
+rhn yhu woi kik ehj vtg wqw jas txq njc ppo smu wuk lwk azp yed myu kbc yra mil rzm bcf ejn zuo ovk zoo 
+zol hyl ypv ddo xpp wsp wmt mcz nxg hhl qdf yph pyk xqm wuj yvk tqc sfj qdw qvp yxr xtq zfw ygf snj eao 
+uyx hwx zpo jcl ysa lal ymu lpy yvn upq rfz mfe pqj mrv ubr aaa xeb mdt hha wtt igf ffj oad rik eoi xko 
+zye fsi bbs zva xwq txo yey rag jlx wnk zro tun ptu yeg nlu ytj gch qpt wvd ldp yoc zqc ath czw epn rwj 
+yul efo pig myl rgl ipc zav lxg mtv awz xfg zzh mfp fjq tnm nse int ajc yxw zcw ysy jgj ixw wsu ytg wwm 
+qdg zpt afy ylm hpk kvq rjz fpp wuy htk yxb ied zyt kta fcg xwf iix zgm xok xch hgr hqv nli zrc xly itw 
+eay ifu zjz tkm swd wuz wgo rjy wed itq hod wzr jok kjo ewg csz zpi xen gji tjm xxq zwh yxa vfa zot vam 
+zxl wpd exc lde pcb pqm bcb jkv vgh lnk wtd wrx hpg yug vzr zlo zmu wdp amg ajn stp yrt zyz azo ama rmg 
+hbw cxt mnc wbb rqw rxn xsr wrc srh wzd ird zjm sfu pad frq qbi dop inf xsc drw lao uso pjw kfn zer yef 
+ybr svi xja vng nrf liy zjx zbp xsb hza nwl uhf pxo gig xoy zue yyj sdk cwc zlz zzm ecb xlm fsg vrq yeq 
+yiy uut yzl xcr ytz srj ybw ejb xoc wxa cme xmf rom nqs hrx ufk ytu yxn whv cad xyl zhf zqj zju fxl jzj 
+yqe qam zaw cyy tai kah dfv xqi pnw eer nqe mzl kew zvs vye ypz grh nwu yuo yha buo zmx knm xio cun zbz 
+rqn xek yxs yss rve tyj xal wsf djk tiy qse zvy iin yky exj ymf uqd qrn fss yvp xeh nzu yxd egl zxj xho 
+oqu xvp ekg zdd zle zwa xxa dub zhp zaf tia vba zmr wss gog uhu zst hbr xgm gbd kqy mdi ygi xjt ujj gvr 
+ygu zxg blh afx yex xnh xqh iln yya wri mdm sai tov ios yqs swr yyh ysi xsp bkq cax xxr ycx chl eaz zmh 
+xdj xfz lto wzw xcd yvh trp zxv mdl zhl oyj ctz xev cop zdg xgc zcj xqs udp qtw zyu zii zpx zmg yde xil 
+zfi aob zlq zpa oyh fab tgj ysh ykz wzc vpu vos byv etf xww oyb xiq hxd nwm zbs zjt yrz zet fhr wyw xnr 
+jvt nxh huf hlr xkw vtn zcu ktb vic iux xcb ypf qnv rpg kjb wtz qvr yil wfc xfd xbf ybh zta wqi xfo dmc 
+evw pnj yes xwb cbr wor wmw xru xdc drs zbk kxb zqk ncw ose lsu yjh raa lbf fqg ynq pvb jzv roz ydu zzi 
+wpq mcp gye cnr ntj wya vpa ele nrj dtp ttc ixa yhg xhp cen zor xam wwl bqg mpl wvw fus yqd irs zlk rae 
+ype xiy zit wzm caf xfe xfh xss wtl lca xso xrc wsn wye qzj zya ncx tcu woe xad hxg fvm yab wgk yzu pbt 
+xfk eyr ivx our xix ote qli ulg yvm lin xqb vjb ylh ocp wrw gui svh yxy ymr yjx ymk jib yko ktr wun tvd 
+ydk ycn ysk ycf xfi jpu zfl wqx zve wyl ywq wvp zcf zrn xkm wwn bav xnx wrf yyd zax ifc ztq ykt xki xrl 
+kez yjl ymg yhx tuq yhr zns zhn wva wty xvm yix zlb xgw wzq wtu zrx lmu znz vht yrm ydq tjt guu wra ipf 
+yje fqf zrl ynl yhc lhb yon zuu kks wyx zfm hrm eci zny zwo xbd wbg xbc zqf zbd wmv eqr yvz lxs ynf yjo 
+wnw yvy jbw yyw xjb wuf ydh zzf xjc ypj zwv wsm yjy wsi xrt zjv zvv zyj zzl zpm zkb wwh ybl xfa wtk zlu 

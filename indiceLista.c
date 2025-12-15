@@ -4,7 +4,7 @@
 
 #include "indiceLista.h"
 
-int tamanhoTabela = 2500;
+int tamanhoTabela = 2000;
 
 NoPalavra * criaNo(){
   NoPalavra * new = (NoPalavra*) malloc(sizeof(NoPalavra));
@@ -33,14 +33,13 @@ int posicaoPalavraLista(char *p){
 }
 
 int inserirPalavraLista(NoPalavra**tabela, char*palavra, int linha, int * comp){
-  int qtd = 0;
 
+  int qtd = 0;
   int id = posicaoPalavraLista(palavra);
   NoPalavra * anterior = tabela[id];
   NoPalavra * p = anterior->next;
   int c;
-  while(p && (c = comparacaoString(palavra, p->palavra)) != 1){
-    qtd++;
+  while(p && (c = comparacaoString(palavra, p->palavra)) != 1+qtd++*0){
     if(c == 0){
       *comp += qtd; 
       inserirLinhaLista(p->linhas, linha);
