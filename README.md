@@ -1,6 +1,11 @@
-# AED_EP1_indices_busca
+AED_EP1_indices_busca
 EP1 de AED, indices busca de palavras por indices do tipo arvore binária de busca (bst) ou listas (lista ligada ou lista sequencial)
-<<<<<<< HEAD
+
+## Como Compilar e Rodar
+
+### Linux / Ubuntu: Para compilar, abra o terminal na pasta do projeto e use: bash** **gcc funcs.c indiceLista.c arvore.c EP1.c -o ep -Wall** ** Para rodar: bash** **./ep <nome_arquivo.txt> <tipo_indice>** **Exemplo: ./ep texto.txt arvore** **
+
+### Windows: Utilize o arquivo runFile.bat ou compile manualmente com GCC.
 
 arquivo funcs.h:
   possui funções de strings que serão uteis para comparações de strings e transformações de strings:
