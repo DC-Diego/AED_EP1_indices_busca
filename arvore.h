@@ -1,7 +1,7 @@
 #ifndef ARVORE_H
 #define ARVORE_H
 
-
+#include "indiceLista.h"
 #include "funcs.h"
 
 typedef struct noArvore
