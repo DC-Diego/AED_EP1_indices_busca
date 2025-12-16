@@ -2,13 +2,16 @@
 #include<stdlib.h>
 #include<string.h>
 #include "indiceLista.h"
+#include "arvore.h"
 #define TAMANHO 10000
 
 
 int tipoLista = 0;
 int alturaArvore = 0;
+
 NoPalavra ** tabela;
 char ** linhas;
+NoArvore * raiz = NULL;
 
 int qtdLinhas(char * nomeArq);
 int inserirIndice(char * palavra, int linha, int * qtdComp);
@@ -124,7 +127,12 @@ int main(int argc, char ** argv){
   }
 
   printf("Total de palavras unicas indexadas: %d\n", palavrasUnicas);
-  if(!tipoLista) printf("Altura da arvore: %d\n", alturaArvore);
+  if(!tipoLista){
+    alturaArvore = calcularAltura(raiz);
+    printf("Altura da arvore: %d\n", alturaArvore);
+  }
+  
+  
   printf("Numero de comparacoes realizadas para a construcao do indice: %d\n", comp);
 
   commandLine();
@@ -157,7 +165,7 @@ int inserirIndice(char * palavra, int linha, int * qtdComp){
     
     return inserirPalavraLista(tabela, toLowerCase(palavra), linha, qtdComp);
   }else{
-    printf("INSERIR ARVORE");
+    return insereNoArvore(&raiz, toLowerCase(palavra), linha, qtdComp);
   }
 }
 
@@ -167,7 +175,10 @@ NoLinha * buscarIndice(char * palavra, int * qtdComp){
 
 
   }else{
-    printf("BUSCAR ARVORE");
+    char * termoBusca = toLowerCase(palavra);
+    NoLinha * resultado = buscarnoArvore(raiz, termoBusca, qtdComp);
+    free(termoBusca);
+    return resultado;
   }
 
 
